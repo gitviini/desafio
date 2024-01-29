@@ -31,6 +31,15 @@ html, body{
     display: block;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: var(--color-code);
 }
 
 header, nav{
@@ -51,11 +60,21 @@ header ul{
 header ul li{
     margin: 0 10px 0 25px;
     list-style: none;
+    font-size: 16px;
+}
+
+header ul li a{
+    text-decoration: none;
+}
+
+header ul li a:hover::before{
+    content: '#';
+    margin: 0 0 0 -11px;
 }
 
 header ul li img{
     display: block;
-    scale: 4;
+    scale: 3;
     image-rendering: pixelated;
 }
 
@@ -71,9 +90,12 @@ h2{
 }
 
 main{
+    position: relative;
+    top: 60px;
     display: block;
     width: 100%;
-    height: auto;
+    height: calc(100% - 60px);
+    overflow: hidden scroll;
 }
 
 section{
@@ -83,8 +105,12 @@ section{
     padding: 10px;
     flex-flow: column;
     justify-content: flex-start;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+    gap: 20px;
+}
+
+section p{
+    text-indent: 10px;
 }
 
 code{

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatCat</title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='logo.png')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    {% block header %}
+    {% endblock header %}
+</head>
+<body>
+<header>
+        <nav>
+            <ul>
+                <li><img src="{{url_for('static', filename='logo.png')}}" alt=""></li>
+                <li><a id="logo" href="/" target="_parent">desafio</a></li>
+                <li><a href="sobre" target="_parent">sobre</a></li>
+            </ul>
+        </nav>
+</header>
+<main>
+    {% block body %}
+    {% endblock body %}
+</main>
+</body>
+</html>
