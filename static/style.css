@@ -1,0 +1,130 @@
+:root{
+    --bg: #C9D7DD;
+    --code: #637A9F;
+    --input: #FFF3CF;
+    --color: #345;
+    --color-code: #fff;
+    --prov: #E8C872;
+    scroll-behavior: smooth;
+    scrollbar-color: var(--code);
+    scrollbar-width: 5px;
+    scrollbar-base-color: var(--bg);
+}
+
+::-webkit-scrollbar{
+    background-color: var(--bg);
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: var(--code);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--color);
+}
+
+html, body{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+header, nav{
+    display: block;
+    width: 100%;
+    height: 60px;
+}
+
+header ul{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+header ul li{
+    margin: 0 10px 0 25px;
+    list-style: none;
+}
+
+header ul li img{
+    display: block;
+    scale: 4;
+    image-rendering: pixelated;
+}
+
+h2{
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 5px;
+    align-self: center;
+    background-color: #E8C872;
+    color: var(--color-code);
+}
+
+main{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+section{
+    display: flex;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    padding: 10px;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+code{
+    display: block;
+    padding: 20px;
+    background-color: var(--code);
+    color: var(--color-code);
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+input, button{
+    display: block;
+    padding: 20px;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    background-color: var(--bg);
+    color: var(--color);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover{
+    background-color: var(--code);
+    color: var(--color-code);
+}
+
+footer{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color);
+}
+
+footer a{
+    text-decoration: none;
+    color: var(--color-code);
+}

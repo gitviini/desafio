@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>catcat</title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='logo.png')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><img src="{{url_for('static', filename='logo.png')}}" alt=""></li>
+                <li><h1 id="logo">desafio</h1></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>1/7 - OPERAÇÕES</h2>
+            <p>Nessa aula o desafio é refazer o código abaixo:</p>
+            <code>
+                console.log( false == '0' );<br>
+                console.log( null == undefined );<br>
+                console.log( " \t\r\n" == 0 );<br>
+                console.log( ' ' == 0 );<br>  
+            </code>
+            <p>De maneira correta e sem erros</p>            
+            <code>
+                let numeroUm = 1<br>
+                let stringUm = '1'<br>
+                let numeroTrinta = 30<br>
+                let stringTrinta = '30'<br>
+                let numeroDez = 10<br>
+                let stringDez = '10'<br>
+
+                if (COMPARAR O numeroUm e a stringUm) {<br>
+                console.log('As variáveis numeroUm e stringUm tem o mesmo valor, mas tipos diferentes')<br>
+                } else {<br>
+                console.log('As variáveis numeroUm e stringUm não tem o mesmo valor')<br>
+                }<br>
+
+                if (COMPARAR O numeroTrinta e a stringTrinta) {<br>
+                console.log('As variáveis numeroTrinta e stringTrinta tem o mesmo valor e mesmo tipo')<br>
+                } else {<br>
+                console.log('As variáveis numeroTrinta e stringTrinta não tem o mesmo tipo')<br>
+                }<br>
+
+                if (COMPARAR O numeroDez e a stringDez) {<br>
+                console.log('As variáveis numeroDez e stringDez tem o mesmo valor, mas tipos diferentes')<br>
+                } else {<br>
+                console.log('As variáveis numeroDez e stringDez não tem o mesmo valor')<br>
+                }<br>
+            </code>
+
+            <p>Resultado:</p>
+
+            <code id="result">
+
+            </code>
+        </section>
+        <footer>
+            <a href="https://instagram.com/v.ii.n.i" target="_blank">@v.ii.n.i</a>
+        </footer>
+    </main>
+</body>
+<script>
+
+    const result = document.querySelector('#result')
+
+    let numero_um = 1
+    let string_um = '1'
+    let numero_trinta = 30
+    let string_trinta = '30'
+    let numero_dez = 10
+    let string_dez = '10'
+
+    if (numero_um == string_um && typeof(numero_um) != typeof(string_um)){
+        console.log('As variáveis numero_um e string_um tem o mesmo valor, mas tipos diferentes')
+    }
+    else{
+        console.log('As variáveis numero_um e string_um não tem o mesmo valor')
+    }
+    if (numero_trinta === string_trinta){
+        console.log('As variáveis numero_trinta e string_trinta tem o mesmo valor e mesmo tipo')
+    }
+    else{
+        console.log('As variáveis numero_trinta e string_trinta não tem o mesmo tipo')
+    }
+    if (numero_um == string_um && typeof(numero_um) != typeof(string_um)){
+        console.log('As variáveis numero_dez e string_dez tem o mesmo valor, mas tipos diferentes')
+    }
+    else{
+        console.log('As variáveis numeroDez e stringDez não tem o mesmo valor')
+    }
+
+    result.innerHTML = `\
+    if (numero_um == string_um && typeof(numero_um) != typeof(string_um)){<br>\
+        console.log('As variáveis numero_um e string_um tem o mesmo valor, mas tipos diferentes')<br>\
+    }<br>\
+    else{<br>\
+        console.log('As variáveis numero_um e string_um não tem o mesmo valor')<br>\
+    }<br>\
+    if (numero_trinta === string_trinta){<br>\
+        console.log('As variáveis numero_trinta e string_trinta tem o mesmo valor e mesmo tipo')<br>\
+    }<br>\
+    else{<br>\
+        console.log('As variáveis numero_trinta e string_trinta não tem o mesmo tipo')<br>\
+    }<br>\
+    if (numero_um == string_um && typeof(numero_um) != typeof(string_um)){<br>\
+        console.log('As variáveis numero_dez e string_dez tem o mesmo valor, mas tipos diferentes')<br>\
+    }<br>\
+    else{<br>\
+        console.log('As variáveis numeroDez e stringDez não tem o mesmo valor')<br>\
+    }
+    
+    1: ${numero_um == string_um && typeof(numero_um) != typeof(string_um)}, 2: ${numero_trinta === string_trinta}, 3: ${numero_um == string_um && typeof(numero_um) != typeof(string_um)}`
+</script>
+</html>
