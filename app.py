@@ -7,11 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('operações.html')
-
-@app.route('/sobre')
-def sobre():
-    return render_template('sobre.html')
+    return render_template('index.html')
 
 @app.route('/<quest_name>')
 def quest(quest_name=''):
