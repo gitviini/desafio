@@ -93,7 +93,8 @@ header ul li img{
 }
 
 #quest_list.click{
-    width: 100%;
+    width: calc(100% - 20px);
+    padding: 0 20px 0 0;
 }
 
 .quest, #desafios p{
@@ -128,6 +129,8 @@ main{
     display: flex;
     width: 100%;
     height: calc(100% - 60px);
+    justify-content: flex-start;
+    align-items: center;
     flex-flow: column;
     overflow: hidden scroll;
 }

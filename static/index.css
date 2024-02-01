@@ -14,8 +14,7 @@
 
 section{
     display: flex;
-    width: 100%;
-    height: 100%;
+    min-width: calc(100% - 20px);
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
@@ -61,7 +60,7 @@ section{
 }
 
 
-#presentation button{
+#presentation .button{
     margin: 10px 0;
 }
 
@@ -71,7 +70,7 @@ section{
 }
 
 #about h2{
-    font-size: 5vw;
+    font-size: 3vw;
     font-family: 'pixel';
     font-weight: 100;
     text-rendering: optimizeSpeed;
@@ -91,6 +90,7 @@ section{
 @media screen and (max-width:500px){
     #intro{
         flex-flow: column;
+        justify-content: flex-start;
         gap: 10px;
         background-image: url('/static/phone.png');
         background-size: 90%;
@@ -100,8 +100,12 @@ section{
     }
     #presentation{
         width: 100%;
+        height: 70%;
     }
-    #presentation h2{
+    #presentation h2, #about h2{
         font-size: 6vh;
+    }
+    #manager{
+        width: 100%;
     }
 }
