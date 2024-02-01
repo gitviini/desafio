@@ -3,13 +3,6 @@
 {% block header %}
 <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
 <style>
-    #intro{
-        background-image: url("{{url_for('static',filename='bg.png')}}");
-        background-position: bottom;
-        background-size: 50vh;
-        background-repeat: repeat-x;
-        image-rendering: pixelated;
-    }
 </style>
 {% endblock header %}
 
@@ -23,7 +16,7 @@
         <img src="{{url_for('static',filename='cat.png')}}" alt="">
     </section>
     <section id="about">
-        <h2>sobre</h2>
+        <h2>SOBRE</h2>
         <div id="manager">
             <p>Esse web site é feito com o objetivo de realizar os desafios da <a href="https://www.linkedin.com/in/rafaellaballerini?originalSubdomain=br" target="_blank">Rafaella Ballerini</a> e guardar todo o aprendizado de uma forma mais bonita e funcional.</p>
         </div>

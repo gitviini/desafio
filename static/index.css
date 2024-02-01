@@ -28,6 +28,14 @@ section{
     image-rendering: pixelated;
 }
 
+#intro{
+    background-image: url("/static/bg.png");
+    background-position: bottom;
+    background-size: 50vh;
+    background-repeat: repeat-x;
+    image-rendering: pixelated;
+}
+
 #presentation{
     display: flex;
     width: 50%;
@@ -40,7 +48,7 @@ section{
 #presentation h2{
     display: block;
     width: 100%;
-    font-size: 14vh;
+    font-size: 6vw;
     font-weight: 500;
     background-color: transparent;
     text-align: left;
@@ -62,12 +70,11 @@ section{
     background-color: var(--code);
 }
 
-#about img{
-    background-color: #000;
-}
-
 #about h2{
     font-size: 5vw;
+    font-family: 'pixel';
+    font-weight: 100;
+    text-rendering: optimizeSpeed;
 }
 
 #manager{
@@ -79,4 +86,22 @@ section{
 
 #manager p, a{
     color: var(--color-code);
+}
+
+@media screen and (max-width:500px){
+    #intro{
+        flex-flow: column;
+        gap: 10px;
+        background-image: url('/static/phone.png');
+        background-size: 90%;
+    }
+    #intro img{
+        display: none;
+    }
+    #presentation{
+        width: 100%;
+    }
+    #presentation h2{
+        font-size: 6vh;
+    }
 }

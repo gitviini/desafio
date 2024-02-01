@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'pixel';
+    src: url(Pixelify_Sans/PixelifySans-VariableFont_wght.ttf);
+}
+
 :root{
     --bg: #C9D7DD;
     --code: #637A9F;
@@ -82,7 +87,7 @@ header ul li img{
     overflow: scroll hidden;
     padding: 0;
     gap: 20px;
-    transition: width 1s ease, border-right 0s;
+    transition: 0.8s ease;
     scrollbar-color: transparent transparent;
     border-right: 5px solid var(--code);
 }
@@ -111,7 +116,8 @@ h2{
     height: auto;
     padding: 10px;
     border-radius: 5px;
-    align-self: center;
+    align-self: left;
+    font-family: 'pixel';
     background-color: #E8C872;
     color: var(--color-code);
 }
@@ -119,20 +125,21 @@ h2{
 main{
     position: relative;
     top: 60px;
-    display: block;
+    display: flex;
     width: 100%;
     height: calc(100% - 60px);
+    flex-flow: column;
     overflow: hidden scroll;
 }
 
 section{
     display: flex;
     width: calc(100% - 20px);
-    height: calc(100% - 20px);
+    min-height: calc(100% - 20px);
     padding: 10px;
     flex-flow: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
 }
 
@@ -181,4 +188,10 @@ footer{
 footer a{
     text-decoration: none;
     color: var(--color-code);
+}
+
+@media screen and (min-width:900px) {
+    section{
+        width: 50%;
+    }
 }
