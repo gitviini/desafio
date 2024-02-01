@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block header %}
+{% endblock header %}
+
+{% block body %}
+<section>
+    <h2>2/7 - VARIÁVEIS</h2>
+    <p>Nesse desafio tem como objetivo criar um prompt onde serão feitas três perguntas, sendo: <br>
+    - Qual o seu nome?<br>
+    - Quantos anos você tem?<br>
+    - Qual linguagem de programação você está estudando?
+    </p>
+    <p>E logo após essas perguntas exibir a mensagem</p>
+    <code>"Olá [nome], você tem [idade] anos e já está aprendendo [linguagem]!"</code>
+    <p>resultado:</p>
+
+    <div id="result"></div>
+
+    <button>iniciar</button>
+</section>
+<script>
+    var result = document.querySelector("#result")
+    const button = document.querySelector('button')
+
+    function quest(text=''){
+        resp = prompt(text)
+        if (resp == '')
+            quest(text+'\nValor incorreto')
+        else
+            return resp
+    }
+
+    button.addEventListener('click',()=>{
+        let code = document.createElement('code')
+        let name = quest('Qual o seu nome?')
+        let age = quest('Quantos anos você tem?')
+        let language = quest('Qual linguagem de programação você está estudando?')
+
+        resp = `Olá ${name}, você tem ${age} anos e já está aprendendo ${language}!`
+
+        code.innerText = resp
+        result.appendChild(code)
+    })
+
+</script>
+{% endblock body %}

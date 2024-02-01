@@ -6,9 +6,8 @@
     --color-code: #fff;
     --prov: #E8C872;
     scroll-behavior: smooth;
-    scrollbar-color: var(--code);
+    scrollbar-color: var(--code) transparent;
     scrollbar-width: 5px;
-    scrollbar-base-color: var(--bg);
 }
 
 ::-webkit-scrollbar{
@@ -61,21 +60,51 @@ header ul li{
     margin: 0 10px 0 25px;
     list-style: none;
     font-size: 16px;
+    cursor: pointer;
 }
 
 header ul li a{
     text-decoration: none;
 }
 
-header ul li a:hover::before{
+.option a:hover::before{
     content: '#';
-    margin: 0 0 0 -11px;
+    margin: 0 0 0 -11.5px;
 }
 
 header ul li img{
     display: block;
     scale: 3;
     image-rendering: pixelated;
+}
+
+#quest_list{
+    display: flex;
+    width: 0;
+    height: 60px;
+    justify-content: flex-start;
+    align-self: center;
+    overflow: scroll hidden;
+    transition: 1s ease;
+    scrollbar-color: transparent transparent;
+}
+
+#quest_list.click{
+    width: 100%;
+}
+
+.quest, #desafios p{
+    display: block;
+    padding: 10px ;
+    background-color: transparent;
+    color: var(--color);
+    border-radius: 50px;
+    transition: 0.2s;
+}
+
+.quest:hover, #desafios:hover p{
+    color: var(--color-code);
+    background-color: var(--code);
 }
 
 h2{

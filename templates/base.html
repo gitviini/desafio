@@ -14,8 +14,9 @@
         <nav>
             <ul>
                 <li><img src="{{url_for('static', filename='logo.png')}}" alt=""></li>
-                <li><a id="logo" href="/" target="_parent">desafio</a></li>
-                <li><a href="sobre" target="_parent">sobre</a></li>
+                <li id="desafios"><p>desafios</p></li>
+                <ul id="quest_list"></ul>
+                <li class="option"><a href="sobre" target="_parent">sobre</a></li>
             </ul>
         </nav>
 </header>
@@ -24,4 +25,23 @@
     {% endblock body %}
 </main>
 </body>
+<script>
+    const desafios = document.querySelector("#desafios")
+    const quest_list = document.querySelector('#quest_list')
+    let list = ['operações','variáveis']
+
+    desafios.addEventListener('click',()=>{
+        quest_list.classList.toggle('click')
+    })
+
+    list.forEach(quest=>{
+        let li = document.createElement('li')
+        let a = document.createElement('a')
+        a.setAttribute('class','quest')
+        a.href = `/${quest}`
+        a.innerText = quest
+        li.appendChild(a)
+        quest_list.appendChild(li)
+    })
+</script>
 </html>
