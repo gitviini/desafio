@@ -102,7 +102,7 @@ header ul li img{
     padding: 10px;
     background-color: transparent;
     color: var(--color);
-    border-radius: 50px;
+    border-radius: 20px;
     transition: 0.2s;
 }
 
