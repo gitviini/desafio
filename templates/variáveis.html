@@ -6,11 +6,13 @@
 {% block body %}
 <section>
     <h2>VARIÁVEIS</h2>
-    <p>Nesse desafio tem como objetivo criar um prompt onde serão feitas três perguntas, sendo: <br>
-    - Qual o seu nome?<br>
-    - Quantos anos você tem?<br>
-    - Qual linguagem de programação você está estudando?
-    </p>
+    <p>Nesse desafio tem como objetivo criar um prompt onde serão feitas três perguntas, sendo: </p>
+    <ul>
+        <li>Qual o seu nome?</li>
+        <li>Quantos anos você tem?</li>
+        <li>Qual linguagem de programação você está estudando?</li>
+    </ul>
+
     <p>E logo após essas perguntas exibir a mensagem</p>
     <code>"Olá [nome], você tem [idade] anos e já está aprendendo [linguagem]!"</code>
 
@@ -34,11 +36,13 @@
 
     button.addEventListener('click',()=>{
         let code = document.createElement('code')
-        let name = quest('Qual o seu nome?')
-        let age = quest('Quantos anos você tem?')
-        let language = quest('Qual linguagem de programação você está estudando?')
+        let res = []
+        res[0] = quest('Qual o seu nome?')
+        res[1] = quest('Quantos anos você tem?')
+        res[2] = quest('Qual linguagem de programação você está estudando?')
 
-        resp = `Olá ${name}, você tem ${age} anos e já está aprendendo ${language}!`
+        
+        resp = `Olá ${res[0]}, você tem ${res[1]} anos e já está aprendendo ${res[2]}!`
 
         code.innerText = resp
         result.appendChild(code)

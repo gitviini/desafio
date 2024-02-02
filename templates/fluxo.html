@@ -6,5 +6,70 @@
 <section>
     <h2>FLUXO DE DECISÃO</h2>
     <p>Nesse desafio nos deparamos com a parte que as decisões do usuário afetam o rumo dos acontecimentos.</p>
+    <p>Para isso vamos utilizar de algumas features (funções), como: for, while, if e else.</p>
+    <ul>
+        <li>for : laço de repetição para cada elemento de algum conjunto</li>
+        <li>while : laço de repetição que será executado enquanto algo for verdadeiro</li>
+        <li>if : condição que faz algo caso sejá verdadeiro</li>
+        <li>else : condição que faz algo caso sejá falso</li>
+    </ul>
+    <p>O desafio é criar um jogo que o usuário consiga escolher entre:</p>
+    <ul>
+        <li>Front-end ou Back-end</li>
+        <li>Se Front</li>
+        <ul>
+            <li>React ou Vue</li>
+        </ul>
+        <li>se Back</li>
+        <ul>
+            <li>C# ou Java</li>
+        </ul>
+        <li>Especializar na área ou Fullstack</li>
+        <li>Quais tecnologias gostaria de se especializar (loop)</li>
+    </ul>
+    <h2>RESULTADO</h2>
+    <div id="result"></div>
+    <button>iniciar</button>
 </section>
+<script>
+    const result = document.querySelector("#result")
+    const button = document.querySelector("button")
+    let res = []
+
+    function quest(text=''){
+        resp = prompt(text)
+        if (resp == '')
+            quest(text+'\nValor incorreto')
+        else
+            return resp
+    }
+
+    button.addEventListener('click',()=>{
+
+        let code = document.createElement('code')
+
+        res[0] = quest('0)Front-end\n1)Back-end')
+        if (res[0] == 0){
+            res[1] = quest('0)React\n1)Vue')
+        }
+        else{
+            res[1] = quest('0)C#\n1)Java')
+        }
+        res[2] = quest('0)Especializar-se na área\n1)Fullstack')
+        let resp = []
+        let n = 0
+        res[3] = ['oi','ikk']
+        do{
+            n++
+            resp[n] = quest('Quais tecnologias gostaria de se especializar?')
+        }while(resp[n] != null)
+        res[3] = resp
+
+        res.forEach(element=>{
+            code.innerHTML += `${element}<br>`
+        })
+
+        result.appendChild(code)
+    })
+</script>
 {% endblock body %}

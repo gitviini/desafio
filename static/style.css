@@ -129,9 +129,9 @@ main{
     display: flex;
     width: 100%;
     height: calc(100% - 60px);
+    flex-flow: column;
     justify-content: flex-start;
     align-items: center;
-    flex-flow: column;
     overflow: hidden scroll;
 }
 
@@ -139,7 +139,7 @@ section{
     display: flex;
     width: calc(100% - 20px);
     min-height: calc(100% - 20px);
-    padding: 10px;
+    padding: 0 10px;
     flex-flow: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -150,14 +150,34 @@ section p{
     text-indent: 10px;
 }
 
+ul{
+    list-style-type: square;
+    padding: 0 15px 0;
+}
+
 code{
     display: block;
-    padding: 20px;
-    background-color: var(--code);
+    padding: 40px 20px 20px 20px;
     color: var(--color-code);
-    border-radius: 10px;
     font-family: 'Courier New', Courier, monospace;
     font-size: 14px;
+    image-rendering: pixelated;
+    background: url('/static/code.png') var(--code) repeat-x top;
+    background-size: 310px;
+}
+
+code ul li{
+    color: var(--color-code);
+}
+
+fieldset{
+    padding: 20px;
+}
+
+fieldset div{
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 10px;
 }
 
 input, button, .button{
@@ -166,7 +186,7 @@ input, button, .button{
     padding: 20px;
     border: none;
     outline: none;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: var(--bg);
     color: var(--color);
     cursor: pointer;
@@ -175,21 +195,6 @@ input, button, .button{
 
 button:hover, .button:hover{
     background-color: var(--code);
-    color: var(--color-code);
-}
-
-footer{
-    display: flex;
-    width: 100%;
-    height: 100px;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--color);
-}
-
-footer a{
-    text-decoration: none;
     color: var(--color-code);
 }
 
