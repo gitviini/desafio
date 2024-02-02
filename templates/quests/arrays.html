@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block header %}{% endblock header %}
+
+{% block body %}
+<section>
+    <h2>ARRAYS</h2>
+    <p>Nesse desafio a ideia é criar uma lista de compras onde você pode adicionar items e depois o software organiza em tópicos.</p>
+    <fieldset>
+        <legend>Lista de compras:</legend>
+        Frutas: banana, tomate, maçã, uva, abacate<br>
+        Laticínios: leite vegetal, leite de vaca, leite em pó<br>
+        Congelados:<br>
+        Doces: chiclete e bala de ursinho<br>
+    </fieldset>
+    <h2>RESULTADO</h2>
+    <fieldset id="result">
+    </fieldset>
+    <button>adicionar</button>
+</section>
+<script>
+    const result = document.querySelector("#result")
+    let shopping_list = {
+        headers:{
+            'name':['frutas','laticínios','congelados','doces']
+        },
+        body:{
+        'frutas':[],
+        'laticínios':[],
+        'congelados':[],
+        'doces':[],
+        },
+    }
+
+    function generate(list={}, place=''){
+        let name = list['headers']['name']
+        let body = list['body']
+
+        place.innerHTML = '<legend>Lista de compras:</legend>'
+
+        name.forEach(element => {
+            place.innerHTML += `${element}:${body[element]}<br>`
+        })
+    }
+
+    generate(shopping_list, result)
+
+    document.querySelector("button").addEventListener('click',()=>{
+        resp = prompt('digite um produto:')
+        topic = prompt(`digite o tópico: ${shopping_list['headers']['name']}`)
+
+        shopping_list['body'][topic] = resp
+
+        generate(shopping_list, place=result)
+    })
+
+</script>
+{% endblock body %}

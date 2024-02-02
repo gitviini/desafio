@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block header %}{% endblock header %}
+
+{% block body %}
+<section>
+    <h2>RANDOMIZAÇÃO</h2>
+    <p>Esse desafio tem vem com a ideia de algo aleatório, fazer um jogo que chutes, onde tem um número randômico e o usuário tem que adivinhar tal número, caso acerte, irá te parabenizar, caso não, terá mais duas tentativas e no fim, ele vai imprimir qual era o número inicial.</p>
+    <p>Para isso vamos utilizar algumas features do JS:</p>
+    <ul>
+        <li>Math.random(): que retorna um número entre 0 e 1.</li>
+        <li>Recursividade: quando uma função chama ela mesma. O que vai ser utilizado caso escreva algum valor inválido.</li>
+    </ul>
+    <h2>RESULTADO</h2>
+    <code id="result">
+    </code>
+    <button>jogar</button>
+</section>
+<script>
+    const result = document.querySelector("#result")
+    let random = (Math.random()*10).toFixed(0)
+    let attempts = 3
+
+    result.innerHTML = `tentativas: ${attempts}<br>`
+
+    function get_number(text=''){
+        resp = Number.parseInt(prompt(text))
+        if(resp >= 0 && resp <= 10)
+            return resp        
+        else
+            get_number(text+'\nValor inválido')
+    }
+
+    document.querySelector("button").addEventListener('click',()=>{
+        if (attempts > 0){
+            if(get_number('digite um número de um a dez:') == random){
+                result.innerHTML = 'Parabéns!<br>Clique para reiniciar'
+                random = (Math.random()*10).toFixed(0)
+            }else{
+                attempts--
+                result.innerHTML = `tentativas: ${attempts}<br>Errou`
+            }
+        }else{
+            result.innerHTML = `O número é: ${random}`
+            random = (Math.random()*10).toFixed(0)
+            attempts = 3
+        }
+
+    })
+
+</script>
+{% endblock body %}

@@ -174,10 +174,8 @@ fieldset{
     padding: 20px;
 }
 
-fieldset div{
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 10px;
+legend{
+    padding: 0 5px;
 }
 
 input, button, .button{
