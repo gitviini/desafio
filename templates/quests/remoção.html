@@ -4,8 +4,10 @@
 
 {% block body %}
 <section>
-    <h2>ARRAYS</h2>
-    <p>Nesse desafio a ideia é criar uma lista de compras onde você pode adicionar items e depois o software organiza em tópicos.</p>
+    <h2>REMOVEÇÃO DE ARRAY</h2>
+    <p>Nesse desafio a ideia é remover um item da lista criada anteriormente.</p>
+    <p>Há diversas formas de deletar um item de uma lista, mas dessa vez vamos utilizar o 'delete'</p>
+    <code>delete list[<índice do produto>]</code>
     <fieldset>
         <legend>Lista de compras:</legend>
         Frutas: banana, tomate, maçã, uva, abacate<br>
@@ -16,7 +18,8 @@
     <h2>RESULTADO</h2>
     <fieldset id="result">
     </fieldset>
-    <button>adicionar</button>
+    <button id='adicionar'>adicionar</button>
+    <button id='deletar'>deletar</button>
 </section>
 <script>
     const result = document.querySelector("#result")
@@ -32,6 +35,14 @@
         },
     }
 
+    function delete_item(list={},topic='',item=''){
+        index = list['body'][topic].indexOf(item)
+        if (index == -1)
+            alert(`item "${item}" não existente`)
+        else
+            delete list['body'][topic][index]
+    }
+
     function generate(list={}, place=''){
         let name = list['headers']['name']
         let body = list['body']
@@ -45,7 +56,7 @@
 
     generate(shopping_list, result)
 
-    document.querySelector("button").addEventListener('click',()=>{
+    document.querySelector("#adicionar").addEventListener('click',()=>{
         resp = prompt('digite um produto:')
         topic = prompt(`digite o tópico: ${shopping_list['headers']['name']}`)
 
@@ -53,7 +64,16 @@
 
         shopping_list['body'][topic][length] = resp
 
-        generate(shopping_list, place=result)
+        generate(shopping_list,result)
+    })
+
+    document.querySelector('#deletar').addEventListener('click',()=>{
+        topic = prompt(`digite um tópico: ${shopping_list['headers']['name']}`)
+        resp = prompt(`digite o nome do produto a ser deletado: ${shopping_list['body'][topic]}`)
+
+        delete_item(shopping_list,topic,resp)
+
+        generate(shopping_list,result)
     })
 
 </script>
