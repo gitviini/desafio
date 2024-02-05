@@ -5,6 +5,7 @@
     --color: #345;
     --color-code: #fff;
     --prov: #E8C872;
+    --width: 50%;
 }
 
 *{
@@ -65,26 +66,48 @@ section{
 }
 
 #about{
+    line-height: 23px;
     flex-flow: column;
     background-color: var(--code);
 }
 
-#about h2{
-    font-size: 3vw;
-    font-family: 'pixel';
-    font-weight: 100;
-    text-rendering: optimizeSpeed;
+#about .button{
+    color: var(--color);
+}
+
+#about img{
+    height: 25%;
+    image-rendering: pixelated;
 }
 
 #manager{
     display: block;
-    width: 50%;
-    line-height: 23px;
+    width: var(--width);
     text-align: justify;
 }
 
-#manager p, a{
+#manager p, #manager a{
     color: var(--color-code);
+}
+
+#auth{
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 23px;
+    background-image: url("/static/bgtop.png");
+    background-position: top;
+    background-size: 50vh;
+    background-repeat: repeat-x;
+    image-rendering: pixelated;
+}
+
+#auth img{
+    height: 40%;
+}
+
+#aboutme{
+    width: var(--width);
 }
 
 @media screen and (max-width:500px){
@@ -105,7 +128,7 @@ section{
     #presentation h2, #about h2{
         font-size: 6vh;
     }
-    #manager{
-        width: 100%;
+    *{
+        --width:80%;
     }
 }

@@ -2,8 +2,6 @@
 
 {% block header %}
 <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
-<style>
-</style>
 {% endblock header %}
 
 {% block body %}
@@ -13,12 +11,18 @@
             <p>Quer conhecer mais sobre? Clique abaixo.</p>
             <a class="button" href="#about">conhecer</a>
         </div>
-        <img src="{{url_for('static',filename='cat.png')}}" alt="">
+        <img src="{{url_for('static',filename='cat.png')}}" alt="cat stop">
     </section>
     <section id="about">
-        <h2>SOBRE</h2>
+        <img src="{{url_for('static',filename='catsleeping.png')}}" alt="cat sleeping">
         <div id="manager">
             <p>Esse web site é feito com o objetivo de realizar os desafios da <a href="https://www.linkedin.com/in/rafaellaballerini?originalSubdomain=br" target="_blank">Rafaella Ballerini</a> e guardar todo o aprendizado de uma forma mais bonita e funcional.</p>
         </div>
+    </section>
+    <section id="auth">
+        <img src="{{url_for('static',filename='catplaying.png')}}" alt="cat playing">
+        <id id="aboutme">
+            <p>Olá. Me chamo Vinicius Gabriel, tenho 18 anos e já fiz alguns projetos na minha vida e você pode acessar todo esse conteúdo no meu github <a href="https://github.com/gitviini" target="_blank">gitviini</a>.</p>
+        </id>
     </section>
 {% endblock body %}

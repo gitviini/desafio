@@ -9,11 +9,65 @@
     <p>Esse é o útilmo desafio da #7DaysOfCode e é um dos mais interessantes, já que, o desafio é criar uma calculadora onde cada função é responsável por uma operação.</p>
     <p>Funções são blocos de código que podem ser reutilizados, deixando o código mais organizado e funcional.</p>
 
-    <code>function somar(a=0,b=0){<br>return a + b<br>}</code>
+    <pre>function somar(a=0,b=0){
+    return a + b
+}</pre>
 
     <h2>RESULTADO</h2>
 
-    
-
+    <code>
+        <form action="" method="post" id="calculator">
+            <div>
+                <input type="number" id="a" required>
+                <input type="number" id="b" required>
+                <p id="response">5</p>
+            </div>
+            <div id="options">
+                <input type="radio" name="option" id="multi" value="*">
+                <label for="multi">*</label>
+                <input type="radio" name="option" id="subtract" value="-">
+                <label for="subtract">-</label>
+                <input type="radio" name="option" id="add" value="+">
+                <label for="add">+</label>
+                <input type="radio" name="option" id="divide" value="/">
+                <label for="divide">/</label>
+                <button>=</button>
+            </div>
+        </form>
+    </code>
 </section>
+<script>
+    const calculator = document.querySelector("#calculator")
+
+    let options = document.getElementsByName('option')
+
+    let operation = '+'
+
+    for(let n = 0; n < options.length; n++){
+        options[n].onclick = () =>{
+            operation = options[n].value
+        }
+    }
+
+    function operations(mode='',a=0,b=0){
+        switch (mode){
+            case '+':
+                return a+b
+            case '-':
+                return a-b
+            case '/':
+                return a/b
+            case '*':
+                return a*b
+        }
+    }
+
+    calculator.onsubmit = (event)=>{
+        event.preventDefault()
+        a = Number(document.querySelector('#a').value)
+        b = Number(document.querySelector('#b').value)
+
+        document.querySelector('#response').innerHTML = `${operations(operation,a,b)}`
+    }
+</script>
 {% endblock body %}
