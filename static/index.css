@@ -91,8 +91,8 @@ section{
 }
 
 #auth{
-    flex-flow: column;
-    justify-content: center;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
     align-items: center;
     line-height: 23px;
     background-image: url("/static/bgtop.png");
@@ -103,11 +103,12 @@ section{
 }
 
 #auth img{
-    height: 40%;
+    height: 50%;
 }
 
 #aboutme{
     width: var(--width);
+    max-width: 500px;
 }
 
 @media screen and (max-width:500px){
@@ -124,6 +125,17 @@ section{
     #presentation{
         width: 100%;
         height: 70%;
+    }
+    #about img, #auth img{
+        width: 45%;
+        height: auto;
+    }
+    #auth{
+        flex-flow: column;
+        justify-content: center;
+    }
+    #aboutme{
+        max-width: none;
     }
     #presentation h2, #about h2{
         font-size: 6vh;
