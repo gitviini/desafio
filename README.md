@@ -10,6 +10,6 @@ Congratulations [Rafaella Ballerini](https://github.com/rafaballerini) for the c
 
 OBS: click on the cat logo to return home
 
-<img src='static/catcat.png' width='100%'>
+<img src='static/example.png' width='100%'>
 
 version: 3.0.0
