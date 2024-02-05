@@ -19,4 +19,4 @@ def quest(quest_name=''):
         return render_template('error.html')
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8000, host='0.0.0.0')
+    app.run(debug=False, port=8000, host='0.0.0.0')
