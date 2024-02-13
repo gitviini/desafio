@@ -25,22 +25,41 @@
 </main>
 </body>
 <script>
+
     const desafios = document.querySelector("#desafios")
     const quest_list = document.querySelector('#quest_list')
-    let list = ['operações','variáveis','fluxo','randomização','arrays','remoção','funções']
+
+    const path = '/center'
+
+    get_list().then(data=>{
+        gerenate(data)
+    })
 
     desafios.addEventListener('click',()=>{
         quest_list.classList.toggle('click')
     })
 
-    list.forEach(quest=>{
-        let li = document.createElement('li')
-        let a = document.createElement('a')
-        a.setAttribute('class','quest')
-        a.href = `/${quest}`
-        a.innerText = quest
-        li.appendChild(a)
-        quest_list.appendChild(li)
-    })
+    async function get_list(){
+        const resp = await fetch(path,{
+            method:'GET',
+            headers:{
+                'Content-Type':'text/html; mode=get_list'
+            }
+        })
+        const data = await resp.json()
+        return data
+    }
+
+    function gerenate(list=[]){
+        list.forEach(quest=>{
+            let li = document.createElement('li')
+            let a = document.createElement('a')
+            a.setAttribute('class','quest')
+            a.href = `/${quest}`
+            a.innerText = quest
+            li.appendChild(a)
+            quest_list.appendChild(li)
+        })
+    }
 </script>
 </html>
