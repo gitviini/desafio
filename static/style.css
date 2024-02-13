@@ -26,9 +26,11 @@
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: var(--color);
     scroll-behavior: smooth;
+    transition: 0.2s, font-style;
 }
 
 html, body{
@@ -78,37 +80,10 @@ header ul li img{
     image-rendering: pixelated;
 }
 
-#quest_list{
-    display: flex;
-    width: 0;
-    height: 40px;
-    justify-content: flex-start;
-    align-self: center;
-    overflow: scroll hidden;
-    padding: 0;
-    gap: 20px;
-    transition: 0.8s ease;
-    scrollbar-color: transparent transparent;
-    border-right: 5px solid var(--code);
-}
-
-#quest_list.click{
-    width: calc(100% - 20px);
-    padding: 0 20px 0 0;
-}
-
-.quest, #desafios p{
+#desafios{
     display: block;
     padding: 10px;
-    background-color: transparent;
-    color: var(--color);
-    border-radius: 20px;
-    transition: 0.2s;
-}
-
-.quest:hover, #desafios:hover p{
-    color: var(--color-code);
-    background-color: var(--code);
+    border-radius: 50px;
 }
 
 h2{
@@ -137,8 +112,8 @@ main{
 
 section{
     display: flex;
-    width: calc(100% - 20px);
-    min-height: calc(100% - 20px);
+    width: 100%;
+    min-height: 100%;
     padding: 10px;
     flex-flow: column;
     justify-content: flex-start;
@@ -203,6 +178,7 @@ button:hover, .button:hover{
     justify-content: center;
     align-items: flex-start;
 }
+
 #calculator div{
     display: flex;
     flex-flow: column;
@@ -217,6 +193,78 @@ label{
 #calculator button, #calculator input, #calculator p{
     border-radius: 0;
     text-indent: 0;
+}
+
+#menu{
+    position: fixed;
+    top: 60px;
+    left: 0;
+    display: flex;
+    width: 0%;
+    height: calc(100% - 60px);
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: var(--code);
+    color: var(--color-code);
+    white-space: nowrap;
+    list-style: none;
+    gap: 5px;
+    z-index: 3;
+    overflow: hidden;
+}
+
+#menu.show{
+    width: 30%;
+}
+
+#label_topic, #label_content{
+    display: block;
+    width: 100%;
+    padding: 20px;
+    cursor: pointer;
+    font-style: normal;
+    color: var(--color-code);
+    border-bottom: 2px solid transparent;
+    transition: 0.2s, border-bottom, font-style;
+}
+
+#label_topic.show, #label_content.show{
+    font-style: italic;
+    border-bottom: 2px solid var(--color-code);
+}
+
+#container_content, #container_topic{
+    display: flex;
+    width: 100%;
+    height: 0;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 5px;
+    overflow: hidden scroll;
+    transition: 0.3s ease;
+}
+
+#container_content.show, #container_topic.show{
+    height: 100%;
+}
+
+.content, .topic{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    background-color: var(--prov);
+    color: var(--color-code);
+    border-radius: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+}
+
+.content:hover, .topic:hover{
+    opacity: 0.9;
 }
 
 @media screen and (min-width:900px) {
