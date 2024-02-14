@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CatCat</title>
     <link rel="shortcut icon" href="{{url_for('static',filename='logo.png')}}" type="image/x-icon">
-    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='/js/base.js')}}" defer></script>
     {% block header %}
     {% endblock header %}
 </head>
@@ -14,80 +15,27 @@
         <nav>
             <ul>
                 <li><a href="/"><img src="{{url_for('static', filename='logo.png')}}" alt=""></a></li>
-                <li id="desafios"><p>desafios</p></li>
+                <li id="desafios">desafios</li>
             </ul>
         </nav>
 </header>
-<div id="menu">
-    <p id="label_topic">topics</p>
-    <ul id="container_topic">
-        <li class="topic">java script</li>
-        <li class="topic">html</li>
-        <li class="topic">css</li>
-    </ul>
-    <p id="label_content">content</p>
-    <ul id="container_content">
-    </ul>
+<div id="container_menu">
+    <div id="top"></div>
+    <div id="menu">
+        <p id="label_topic">topics</p>
+        <ul id="container_topic">
+            <li class="topic">javascript</li>
+            <li class="topic">html</li>
+            <li class="topic">css</li>
+        </ul>
+        <p id="label_content">content</p>
+        <ul id="container_content">
+        </ul>
+    </div>
 </div>
 <main>
     {% block body %}
     {% endblock body %}
 </main>
 </body>
-<script>
-    const desafios = document.querySelector("#desafios")
-
-    const path = '/center'
-
-    get_list().then(data=>{
-        gerenate(data)
-    })
-
-    desafios.addEventListener('click',()=>{
-        document.querySelector('#menu').classList.toggle('show')
-    })
-
-    async function get_list(){
-        const resp = await fetch(path,{
-            method:'GET',
-            headers:{
-                'Content-Type':'text/html; mode=get_list'
-            }
-        })
-        const data = await resp.json()
-        return data
-    }
-
-    function gerenate(list=[]){
-        list.forEach(quest=>{
-            let li = document.createElement('li')
-            let a = document.createElement('a')
-            a.setAttribute('class','content')
-            a.href = `/${quest}`
-            a.innerText = quest
-            li.appendChild(a)
-            container_content.appendChild(li)
-        })
-    }
-
-    const label_topic = document.querySelector('#label_topic')
-    const label_content = document.querySelector('#label_content')
-    const container_content = document.querySelector('#container_content')
-    const container_topic = document.querySelector('#container_topic')
-
-    label_topic.onclick = () =>{
-        label_topic.classList.toggle('show')
-        label_content.classList.remove('show')
-        container_topic.classList.toggle('show')
-        container_content.classList.remove('show')
-    }
-
-    label_content.onclick = () =>{
-        label_content.classList.toggle('show')
-        label_topic.classList.remove('show')
-        container_content.classList.toggle('show')
-        container_topic.classList.remove('show')
-    }
-
-</script>
 </html>

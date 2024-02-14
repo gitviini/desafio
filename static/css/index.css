@@ -15,7 +15,7 @@
 
 section{
     display: flex;
-    min-width: calc(100% - 20px);
+    min-width: 100%;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
