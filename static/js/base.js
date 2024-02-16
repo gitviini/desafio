@@ -34,21 +34,5 @@ function gerenate(list=[]){
     })
 }
 
-const label_topic = document.querySelector('#label_topic')
-const label_content = document.querySelector('#label_content')
 const container_content = document.querySelector('#container_content')
 const container_topic = document.querySelector('#container_topic')
-
-label_topic.onclick = () =>{
-    label_topic.classList.toggle('show')
-    label_content.classList.remove('show')
-    container_topic.classList.toggle('show')
-    container_content.classList.remove('show')
-}
-
-label_content.onclick = () =>{
-    label_content.classList.toggle('show')
-    label_topic.classList.remove('show')
-    container_content.classList.toggle('show')
-    container_topic.classList.remove('show')
-}

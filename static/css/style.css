@@ -84,7 +84,6 @@ header ul li img{
 #desafios{
     display: block;
     padding: 10px;
-    font-family: 'pixel';
     font-size: 18px;
     border-radius: 50px;
     color: var(--color);
@@ -122,7 +121,7 @@ main{
 section{
     display: flex;
     width: 100%;
-    min-height: 100%;
+    height: auto;
     padding: 10px;
     flex-flow: column;
     justify-content: flex-start;
@@ -180,29 +179,8 @@ button:hover, .button:hover{
     color: var(--color-code);
 }
 
-#calculator{
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 5px;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-#calculator div{
-    display: flex;
-    flex-flow: column;
-    gap: 5px;
-    justify-content: flex-start;
-    align-items: center;
-}
-
 label{
     color: var(--color-code);
-}
-
-#calculator button, #calculator input, #calculator p{
-    border-radius: 0;
-    text-indent: 0;
 }
 
 #container_menu{
@@ -220,9 +198,13 @@ label{
     gap: 0;
 }
 
+#container_menu li{
+    list-style: none;
+}
+
 #container_menu.show{
     height: calc(100% - 60px);
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(1.5px);
 }
 
 #top{
@@ -249,47 +231,29 @@ label{
     overflow: hidden;
 }
 
-#label_topic, #label_content{
-    display: block;
-    width: 100%;
-    align-self: flex-start;
-    padding: 20px;
-    cursor: pointer;
-    font-style: normal;
-    color: var(--color-code);
-}
-
-#label_topic::before, #label_content::before{
-    content: '|';
-    padding: 0 10px 0 0;
-    display: block;
-    float: left;
-    transition: 0.2s;
-}
-
-#label_topic.show, #label_content.show{
-    font-style: italic;
-}
-
-#label_topic.show::before, #label_content.show::before{
-    content: '>';
-    padding: 0 5px 0 0;
-}
-
 #container_content, #container_topic{
-    display: flex;
     width: 90%;
-    height: 0;
-    flex-flow: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 5px;
     overflow: hidden scroll;
     transition: 0.3s ease;
 }
 
-#container_content.show, #container_topic.show{
-    height: 100%;
+#container_topic{
+    display: flex;
+    height: 20%;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-flow: row nowrap;
+    gap: 5px;
+}
+
+#container_content{
+    display: grid;
+    height: 80%;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-auto-rows: 40px;
+    gap: 5px;
+    flex-flow: row wrap;
 }
 
 .content, .topic{

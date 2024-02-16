@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block header %}
+    <script src="{{url_for('static',filename='js/funções.js')}}" defer></script>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/calculator.css')}}">
 {% endblock header %}
 
 {% block body %}
@@ -15,59 +17,35 @@
 
     <h2>RESULTADO</h2>
 
-    <code>
+    <code id="container_calculator">
         <form action="" method="post" id="calculator">
-            <div>
-                <input type="number" id="a" required>
-                <input type="number" id="b" required>
-                <p id="response">5</p>
+            <div id="container_display">
+                <p id="before"></p>
+                <p id="real">0</p>
             </div>
-            <div id="options">
-                <input type="radio" name="option" id="multi" value="*">
-                <label for="multi">*</label>
-                <input type="radio" name="option" id="subtract" value="-">
-                <label for="subtract">-</label>
-                <input type="radio" name="option" id="add" value="+">
-                <label for="add">+</label>
-                <input type="radio" name="option" id="divide" value="/">
-                <label for="divide">/</label>
-                <button>=</button>
+            <div id="container_option">
+                <div id="container_number">
+                    <button class="number">1</button>
+                    <button class="number">2</button>
+                    <button class="number">3</button>
+                    <button class="number">4</button>
+                    <button class="number">5</button>
+                    <button class="number">6</button>
+                    <button class="number">7</button>
+                    <button class="number">8</button>
+                    <button class="number">9</button>
+                    <button class="number">0</button>
+                    <button id="equal">=</button>
+                    <button id="clear">AC</button>
+                </div>
+                <div id="container_operation">
+                    <button value="/">÷</button>
+                    <button value="*">x</button>
+                    <button value="-">-</button>
+                    <button value="+">+</button>
+                </div>
             </div>
         </form>
     </code>
 </section>
-<script>
-    const calculator = document.querySelector("#calculator")
-
-    let options = document.getElementsByName('option')
-
-    let operation = '+'
-
-    for(let n = 0; n < options.length; n++){
-        options[n].onclick = () =>{
-            operation = options[n].value
-        }
-    }
-
-    function operations(mode='',a=0,b=0){
-        switch (mode){
-            case '+':
-                return a+b
-            case '-':
-                return a-b
-            case '/':
-                return a/b
-            case '*':
-                return a*b
-        }
-    }
-
-    calculator.onsubmit = (event)=>{
-        event.preventDefault()
-        a = Number(document.querySelector('#a').value)
-        b = Number(document.querySelector('#b').value)
-
-        document.querySelector('#response').innerHTML = `${operations(operation,a,b)}`
-    }
-</script>
 {% endblock body %}

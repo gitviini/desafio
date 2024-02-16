@@ -1,0 +1,87 @@
+#container_calculator{
+    display: flex;
+    padding: 30px 10px 10px 10px;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#calculator{
+    display: flex;
+    width: 215px;
+    height: auto;
+    flex-flow: column;
+    gap: 5px;
+    justify-content: start;
+    align-items: start;
+}
+
+#calculator div{
+    gap: 5px;
+}
+
+#calculator button, #calculator input, #calculator p{
+    border-radius: 0;
+    text-indent: 0;
+}
+
+#container_option{
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-flow: row nowrap;
+}
+
+#calculator #container_display{
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0px;
+}
+
+#container_display p{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+    text-align: right;
+    height: 30px;
+    padding: 0 20px;
+}
+
+#before{
+    font-size: 11px;
+}
+
+#container_number{
+    display: flex;
+    width: 160px;
+    height: auto;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#calculator button{
+    display: flex;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+#clear{
+    background-color: #fa9;
+}
+
+#container_operation{
+    display: flex;
+    width: 50px;
+    flex-flow: column;
+    justify-content: flex-start;
+}
