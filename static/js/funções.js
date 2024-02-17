@@ -37,6 +37,7 @@ class Calculator{
         if (Number(this.real)){
             this.before = `${this.real} ${this.mode_operation}`
             this.b = Number(this.real)
+            this.a = 0
         }
         else{
             this.before = `${this.b} ${this.mode_operation}`
