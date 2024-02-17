@@ -24,7 +24,11 @@ def center():
                 data[topic] = []
         elif quest[2]:
             for content in quest[2]:
-                data[quest[0].split('\\')[-1]].append(content.split('.html')[0])
+                if os.name == 'nt':
+                    data[quest[0].split('\\')[-1]].append(content.split('.html')[0])
+                elif os.name =='posix':
+                    data[quest[0].split('/')[-1]].append(content.split('.html')[0])
+                else: print(os.name)
     return jsonify(data)
 
 @app.route('/<topic>/<content>/')
@@ -37,4 +41,4 @@ def quest(topic='',content=''):
         return render_template('error.html')
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8000, host='0.0.0.0')
+    app.run(debug=False, port=8000, host='0.0.0.0')
