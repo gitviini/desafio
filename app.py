@@ -1,7 +1,7 @@
 from flask import Flask, render_template, make_response, request as req, jsonify
-from os import listdir, getcwd, path
+from os import walk, getcwd, path
 
-fouder = 'templates/quests'
+fouder = 'templates/courses'
 
 basepath = getcwd()
 
@@ -11,19 +11,29 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/center', methods=('POST','GET'))
+@app.route('/center/', methods=('POST','GET'))
 def center():
-    quests = listdir(path.join(basepath,fouder))
-    data = []
+    quests = walk(path.join(basepath,fouder))
+    data = {
+        'topic':[],
+    }
     for quest in quests:
-        data.append(quest.split('.html')[0])
+        if quest[1]:
+            data['topic'] = quest[1]
+            for topic in quest[1]:
+                data[topic] = []
+        elif quest[2]:
+            for content in quest[2]:
+                data[quest[0].split('\\')[-1]].append(content.split('.html')[0])
     return jsonify(data)
 
-@app.route('/<quest_name>')
-def quest(quest_name=''):
+@app.route('/<topic>/<content>/')
+def quest(topic='',content=''):
     try:
-        return render_template('/quests/'+f'{quest_name}.html')
-    except:
+        way = f'/courses/{topic}/{content}.html'
+        return render_template(way)
+    except Exception as erro:
+        print(erro)
         return render_template('error.html')
 
 if __name__ == "__main__":

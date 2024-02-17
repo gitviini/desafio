@@ -6,7 +6,7 @@
     <title>CatCat</title>
     <link rel="shortcut icon" href="{{url_for('static',filename='logo.png')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
-    <script src="{{url_for('static', filename='/js/base.js')}}" defer></script>
+    <script src="/static/js/base.js" defer></script>
     {% block header %}
     {% endblock header %}
 </head>
@@ -30,11 +30,10 @@
             <span>github</span>
         </a>
     </div>
-    <p class="menu_label">conteúdo</p>
+    <p class="menu_label"></p>
     <ul id="container_content">
     </ul>
     <ul id="container_topic">
-        <li class="topic"><img src="{{url_for('static',filename='javascript.png')}}" alt=""></li>
     </ul>
 </div>
 <main>
