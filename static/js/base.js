@@ -8,7 +8,7 @@ get_list().then(data=>{
 
 desafios.addEventListener('click',()=>{
     desafios.classList.toggle('show')
-    document.querySelector('#container_menu').classList.toggle('show')
+    document.querySelector('#menu').classList.toggle('show')
 })
 
 async function get_list(){

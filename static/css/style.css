@@ -30,7 +30,7 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: var(--color);
     scroll-behavior: smooth;
-    transition: 0.2s, font-style;
+    transition: 0.2s, font-style, border-right;
 }
 
 html, body{
@@ -54,13 +54,13 @@ header, nav{
 }
 
 header ul{
-    display: grid;
+    display: flex;
     width: 100%;
     height: 100%;
     padding: 0 20px;
-    grid-template-columns: 60px auto 60px;
-    justify-content: space-between;
-    align-content: center;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
     gap: 20px;
     align-items: center;
 }
@@ -183,96 +183,150 @@ label{
     color: var(--color-code);
 }
 
-#container_menu{
+#menu{
     position: fixed;
-    inset: auto auto 0px 0px;
+    inset: 60px auto auto 0;
+    display: grid;
+    width: 0;
+    max-width: 450px;
+    height: calc(100% - 60px);
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 17px 1fr 50px;
+    justify-items: flex-start;
+    align-items: start;
+    background-color: var(--code);
+    color: var(--color-code);
+    border-right: 0px solid var(--color);
+    white-space: nowrap;
+    list-style: none;
+    gap: 20px;
+    overflow: hidden;
+    padding: 0;
+    font-family: monospace;
+    z-index: 3;
+}
+
+#menu.show{
+    padding: 20px 10px 10px 10px;
+    border-right: 6px solid var(--color);
+    width: 100%;
+}
+
+#container_navigation{
     display: flex;
     width: 100%;
-    height: 0%;
-    flex-flow: column;
-    justify-content: flex-end;
-    backdrop-filter: none;
+    height: 100%;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
     align-items: center;
-    overflow: hidden;
-    z-index: 3;
-    gap: 0;
+    gap: 5px;
 }
 
-#container_menu li{
-    list-style: none;
+.navigation{
+    display: flex;
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
+    justify-content: flex-start;
+    align-items: center;
+    align-self: flex-start;
+    gap: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: var(--bg);
+    color: var(--color);
+    cursor: pointer;
 }
 
-#container_menu.show{
-    height: calc(100% - 60px);
-    backdrop-filter: blur(1.5px);
-}
-
-#top{
+.navigation img{
     display: block;
-    width: 100%;
-    height: 60px;
-    background: url('../bg.png') repeat-x bottom;
-    background-size: 50vh;
+    width: 30px;
     image-rendering: pixelated;
 }
 
-#menu{
-    display: flex;
-    width: 100%;
-    height: 60%;
-    padding: 20px 0 10px 0;
-    flex-flow: column;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: var(--code);
-    white-space: nowrap;
-    list-style: none;
-    gap: 5px;
-    overflow: hidden;
+.navigation span{
+    font-family: monospace;
+    font-size: 16px;
+}
+
+.navigation:hover{
+    scale: 1.04;
+}
+
+.menu_label{
+    font-size: 17px;
+    color: var(--color-code);
+}
+
+.menu_label::before{
+    content: '#';
 }
 
 #container_content, #container_topic{
-    width: 90%;
-    overflow: hidden scroll;
-    transition: 0.3s ease;
-}
-
-#container_topic{
     display: flex;
-    height: 20%;
+    width: 100%;
+    height: 100%;
     flex-flow: column;
     justify-content: flex-start;
-    align-items: flex-start;
-    flex-flow: row nowrap;
+    align-items: center;
     gap: 5px;
+    overflow: hidden scroll;
+    transition: 0.3s ease;
+    padding: 0;
+}
+
+#menu li{
+    list-style: none;
+    padding: 0;
+    align-self: flex-start;
 }
 
 #container_content{
-    display: grid;
-    height: 80%;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    grid-auto-rows: 40px;
-    gap: 5px;
-    flex-flow: row wrap;
+    padding: 5px 0 0 0;
+    border-top: 1.5px solid #ddd;
 }
 
-.content, .topic{
-    display: block;
+#container_topic{
+    flex-flow: row nowrap;
+    overflow: hidden;
+}
+
+.content{
+    display: flex;
     width: 100%;
-    padding: 10px;
+    height: 40px;
+    padding: 5px;
+    flex-flow: column;
+    justify-content: center;
+    align-items: flex-start;
     cursor: pointer;
-    background-color: var(--prov);
-    color: var(--color-code);
     border-radius: 10px;
+    background-color: rgba(0,0,0,0.1);
+    color: var(--color-code);
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: none;
-    margin: 0 0 5px 0;
+    list-style: circle;
+    font-size: 17px;
 }
 
-.content:hover, .topic:hover{
-    background-color: var(--prov);
+.content:hover{
+    background-color: rgba(0,0,0,0.2);
 }
+
+.topic{
+    list-style: none;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.topic img{
+    display: block;
+    width: 50px;
+    image-rendering: pixelated;
+}
+
 @media screen and (min-width:900px) {
     section{
         width: 50%;

@@ -19,17 +19,23 @@
             </ul>
         </nav>
 </header>
-<div id="container_menu">
-    <div id="top"></div>
-    <div id="menu">
-        <ul id="container_topic">
-            <li class="topic">javascript</li>
-            <li class="topic">html</li>
-            <li class="topic">css</li>
-        </ul>
-        <ul id="container_content">
-        </ul>
+<div id="menu">
+    <div id="container_navigation">
+        <a class="navigation" href="/">
+            <img src="{{url_for('static',filename='home_logo.png')}}" alt="home logo">
+            <span>home</span>
+        </a>
+        <a class="navigation" href="https://github.com/gitviini/" target="_blank">
+            <img src="{{url_for('static',filename='github.png')}}" alt="">
+            <span>github</span>
+        </a>
     </div>
+    <p class="menu_label">conteúdo</p>
+    <ul id="container_content">
+    </ul>
+    <ul id="container_topic">
+        <li class="topic"><img src="{{url_for('static',filename='javascript.png')}}" alt=""></li>
+    </ul>
 </div>
 <main>
     {% block body %}
