@@ -1,9 +1,9 @@
 from flask import Flask, render_template, make_response, request as req, jsonify
-from os import walk, getcwd, path
+import os
 
 fouder = 'templates/courses'
 
-basepath = getcwd()
+basepath = os.getcwd()
 
 app = Flask(__name__)
 
@@ -13,7 +13,7 @@ def index():
 
 @app.route('/center/', methods=('POST','GET'))
 def center():
-    quests = walk(path.join(basepath,fouder))
+    quests = os.walk(os.path.join(basepath,fouder))
     data = {
         'topic':[],
     }
