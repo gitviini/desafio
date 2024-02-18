@@ -1,4 +1,5 @@
 const desafios = document.querySelector("#desafios")
+const menu = document.querySelector('#menu')
 const menu_label = document.querySelector(".menu_label")
 const container_content = document.querySelector('#container_content')
 const container_topic = document.querySelector('#container_topic')
@@ -8,10 +9,17 @@ let topic_select = ''
 
 get_list()
 
-desafios.addEventListener('click',()=>{
+desafios.onclick = () =>{
     desafios.classList.toggle('show')
-    document.querySelector('#menu').classList.toggle('show')
-})
+    menu.classList.toggle('show')
+    if (menu.classList.value){
+        document.onclick = (event) =>{
+            if (event.x > 450){
+                menu.classList.remove('show')
+            }
+        }
+    }
+}
 
 async function get_list(){
     const resp = await fetch(path,{

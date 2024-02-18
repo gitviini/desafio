@@ -346,9 +346,7 @@ label{
 
 @media screen and (max-width: 650px){
     #menu{
-        max-width: 100%;
-    }
-    #menu.show{
         border: none;
+        max-width: 100%;
     }
 }

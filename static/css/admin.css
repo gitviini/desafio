@@ -1,0 +1,28 @@
+#sign_admin{
+    display: flex;
+    height: 100%;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#container_form, form{
+    display: flex;
+    width: auto;
+    height: auto;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+form{
+    padding: 20px;
+    margin: 10px;
+    border: 2px solid var(--bg);
+    border-radius: 20px;
+}
+
+form button{
+    align-self: flex-start;
+}
