@@ -9,7 +9,7 @@ admin_file_path = 'templates/admin_signed.html'
 
 basepath = os.getcwd()
 
-data = os.environ['ADMIN'].split(',')
+#data = os.environ['ADMIN'].split(',')
 
 app = Flask(__name__)
 
@@ -54,22 +54,34 @@ def quest(topic='',content=''):
         print(erro)
         return render_template('error.html')
 
-@app.route('/admin', methods=('POST','GET'))
+@app.route('/admin', methods=('POST','GET','DELETE','PUT'))
 def admin():
-    if req.method == 'POST':
-        resp = ''
-        if req.is_json:
-            resp = req.json
-        print(req.json)
-        password = hash(resp['password'])
-        if data[0] == resp['username'] and data[1] == password:
-            content = {'resp':''}
-            with open(os.path.join(basepath,admin_file_path), 'r') as f:
-                content['resp'] = f.read()
-                f.close()
-            return jsonify(content)
-        else: return jsonify({'resp':'username or password incorrect'})
-    return render_template('admin.html')
+    if (req.method != 'GET'):
+        match (req.method):
+            case 'POST':
+                pass
+            case 'DELETE':
+                pass
+            case 'PUT':
+                pass
+    else: return render_template('admin_signed.html')
+
+#@app.route('/admin', methods=('POST','GET'))
+#def admin():
+#    if req.method == 'POST':
+#        resp = ''
+#        if req.is_json:
+#            resp = req.json
+#        print(req.json)
+#        password = hash(resp['password'])
+#        if data[0] == resp['username'] and data[1] == password:
+#            content = {'resp':''}
+#            with open(os.path.join(basepath,admin_file_path), 'r') as f:
+#                content['resp'] = f.read()
+#                f.close()
+#            return jsonify(content)
+#        else: return jsonify({'resp':'username or password incorrect'})
+#    return render_template('admin.html')
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000, host='0.0.0.0')
