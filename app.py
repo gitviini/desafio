@@ -3,6 +3,9 @@ import json
 import os
 import hashlib
 
+def error(text=''):
+    return f'\033[31;3m{text}\033[;m'
+
 fouder = 'templates/courses'
 
 admin_file_path = 'templates/admin_signed.html'
@@ -21,11 +24,41 @@ def hash(text='') -> str:
     sha.update(text)
     return sha.hexdigest()
 
-@app.route('/', methods=('POST','GET'))
+#manager admin
+def admin_center(req='') -> any:
+    if (req.method == 'POST'):
+        mode = req.mimetype_params['mode']
+        print(mode)
+        match (mode):
+            case 'admin_signed':
+                if req.is_json:
+                    resp = req.json
+                    password = hash(resp['password'])
+                    if data[0] == resp['username'] and data[1] == password:
+                        content = {
+                            'headers':{
+                                'Content-Type':'application/json',
+                            },
+                            'resp':''
+                            }
+                        with open(os.path.join(basepath,admin_file_path), 'r') as f:
+                            content['resp'] = f.read()
+                            f.close()
+                        return jsonify(content)
+                    else: return jsonify({'resp':'username or password incorrect'})
+            case 2:
+                pass
+            case _:
+                print(error(f'admin_center:. not found {mode}'))
+    if (req.method == 'GET'):
+        return render_template('admin.html')
+
+
+@app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/center/', methods=('POST','GET'))
+@app.route('/center/')
 def center():
     quests = os.walk(os.path.join(basepath,fouder))
     data = {
@@ -54,22 +87,9 @@ def quest(topic='',content=''):
         print(erro)
         return render_template('error.html')
 
-@app.route('/admin', methods=('POST','GET'))
+@app.route('/admin', methods=['POST','GET','DELETE','PUT'])
 def admin():
-    if req.method == 'POST':
-        resp = ''
-        if req.is_json:
-            resp = req.json
-        print(req.json)
-        password = hash(resp['password'])
-        if data[0] == resp['username'] and data[1] == password:
-            content = {'resp':''}
-            with open(os.path.join(basepath,admin_file_path), 'r') as f:
-                content['resp'] = f.read()
-                f.close()
-            return jsonify(content)
-        else: return jsonify({'resp':'username or password incorrect'})
-    return render_template('admin.html')
+    return admin_center(req)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000, host='0.0.0.0')

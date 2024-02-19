@@ -2,6 +2,7 @@
 
 {% block header %}
     <link rel="stylesheet" href="{{url_for('static',filename='css/admin.css')}}">
+    <script src="/static/js/admin.js" defer></script>
 {% endblock header %}
 
 {% block body %}
@@ -17,52 +18,6 @@
             </div>
         </section>
     </section>
-<script>
-    const form = document.querySelector('#container_form form')
-    const container_main = document.querySelector('#container_main')
-    console.log()
-
-    function get_cookie(mode=0){
-        let cookies = document.cookie
-        if (cookies.indexOf(';') != -1){
-            cookies = cookies.split(';')
-        }else{
-            cookies = cookies.split('=')
-        }
-
-        return cookies[cookies.indexOf('csrftoken')+1]
-    }
-
-    function generate_page(data=''){
-        container_main.innerHTML += data
-    }
-
-    async function get_admin_file(data={}){
-        let info = {
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',
-                'X-CSRFToken':get_cookie(),
-            },
-            body:JSON.stringify(data),
-        }
-        const req = await fetch('/admin',info)
-
-        const resp = await req.json()
-        generate_page(resp['resp'])
-        return resp
-    }
-
-    form.onsubmit = (event) =>{
-        event.preventDefault()
-        
-        username = document.querySelector('#container_form form input[name="username"]').value
-        password = document.querySelector('#container_form form input[name="password"]').value
-        data = {
-            'username':username,
-            'password':password,
-        }
-        get_admin_file(data)
-    }
-</script>
+    <section id="container_resp">
+    </section>
 {% endblock body %}
