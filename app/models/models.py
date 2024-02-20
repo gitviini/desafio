@@ -1,6 +1,5 @@
 import sqlite3 as sq
 
-
 def error(text=''):
     print(f'\033[31;3m{text}\033[m')
 

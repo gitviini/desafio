@@ -1,5 +1,5 @@
-from flask import Flask, render_template, make_response, request as req, jsonify
-import json
+from app.__init__ import app, render_template, jsonify, make_response, req
+from app.models.models import center
 import os
 import hashlib
 
@@ -13,8 +13,6 @@ admin_file_path = 'templates/admin_signed.html'
 basepath = os.getcwd()
 
 #data = os.environ['ADMIN'].split(',')
-
-app = Flask(__name__)
 
 #util
 
@@ -90,13 +88,17 @@ def quest(topic='',content=''):
 @app.route('/admin', methods=('POST','GET','DELETE','PUT'))
 def admin():
     if (req.method != 'GET'):
-        match (req.method):
-            case 'POST':
-                pass
-            case 'DELETE':
-                pass
-            case 'PUT':
-                pass
+        mode = req.mimetype_params
+        if req.is_json:
+            json = req.json
+            print(json)
+            match (req.method):
+                case 'POST':
+                    center(mode, json)
+                case 'DELETE':
+                    center(mode, json)
+                case 'PUT':
+                    center(mode, json)
     else: return render_template('admin_signed.html')
 
 #@app.route('/admin', methods=('POST','GET'))
@@ -115,6 +117,3 @@ def admin():
 #            return jsonify(content)
 #        else: return jsonify({'resp':'username or password incorrect'})
 #    return render_template('admin.html')
-
-if __name__ == "__main__":
-    app.run(debug=True, port=8000, host='0.0.0.0')
