@@ -6,11 +6,13 @@ import hashlib
 def error(text=''):
     return f'\033[31;3m{text}\033[;m'
 
-fouder = 'templates/courses'
+fouder = 'app/templates/courses'
 
-admin_file_path = 'templates/admin_signed.html'
+admin_file_path = 'app/templates/admin_signed.html'
 
 basepath = os.getcwd()
+
+print(basepath)
 
 #data = os.environ['ADMIN'].split(',')
 
