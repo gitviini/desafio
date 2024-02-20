@@ -87,11 +87,6 @@ def quest(topic='',content=''):
         print(erro)
         return render_template('error.html')
 
-<<<<<<< HEAD
-@app.route('/admin', methods=['POST','GET','DELETE','PUT'])
-def admin():
-    return admin_center(req)
-=======
 @app.route('/admin', methods=('POST','GET','DELETE','PUT'))
 def admin():
     if (req.method != 'GET'):
@@ -120,7 +115,6 @@ def admin():
 #            return jsonify(content)
 #        else: return jsonify({'resp':'username or password incorrect'})
 #    return render_template('admin.html')
->>>>>>> ac027b51757a41c1cdfdf0ab288b1d9f1ba94bc7
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000, host='0.0.0.0')
