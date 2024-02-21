@@ -14,6 +14,8 @@ basepath = os.getcwd()
 
 print(basepath)
 
+data =  []
+
 #data = os.environ['ADMIN'].split(',')
 
 #util

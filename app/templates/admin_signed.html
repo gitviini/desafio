@@ -5,6 +5,7 @@
         section{
             justify-content: center;
             align-items: center;
+            align-self: center;
         }
 
         #manager{
@@ -14,15 +15,23 @@
             gap: 5px;
         }
 
+        #manager .form{
+            border: 2px solid var(--bg);
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .form summary{
+            cursor: pointer;
+        }
+
         #manager form{
             display: flex;
             flex-flow: column;
             justify-content: center;
             align-items: flex-start;
             gap: 5px;
-            border: 2px solid var(--bg);
-            padding: 20px;
-            border-radius: 20px;
+            margin: 10px 0 0 0;
         }
 
         #manager textarea{
@@ -36,30 +45,51 @@
 {% block body %}
 <section id="container_admin">
     <section id="manager">
-        <form action="/admin" id="new_topic" autocomplete="off">
-            <h1>new topic</h1>
-            <input type="text" max="20" id="new_topic_name" placeholder="topic name" required>
-            <input type="file" id="new_topic_image">
-            <button>enviar</button>
-        </form>
-        <form action="/admin" id="delete_topic" autocomplete="off">
-            <h1>delete topic</h1>
-            <ul id="container_delete_topic"></ul>
-        </form>
-        <form action="/admin" id="new_content" autocomplete="off">
-            <h1>new content</h1>
-            <input type="text" max="20" id="new_content_name" placeholder="content" required>
-            <textarea id="new_content_html" cols="30" rows="10"></textarea>
-            <button>enviar</button>
-        </form>
-        <form action="/admin" id="edit_content">
-            <h1>edit content</h1>
-            <ul id="container_edit_content"></ul>
-        </form>
-        <form action="/admin" id="delete_content">
-            <h1>delete content</h1>
-            <ul id="container_delete_content"></ul>
-        </form>
+        <details class="form">
+            <summary>new topic</summary>
+            <form action="/admin" id="new_topic" autocomplete="off">
+                <input type="text" max="20" id="new_topic_name" placeholder="topic name" required>
+                <input type="file" id="new_topic_image">
+                <button>enviar</button>
+            </form>
+        </details>
+        <details class="form">
+            <summary>delete topic</summary>
+            <form action="/admin" id="delete_topic" autocomplete="off">
+                <ul id="container_delete_topic"></ul>
+            </form>
+        </details>
+        <details class="form">
+            <summary>new content</summary>
+            <form action="/admin" id="new_content" autocomplete="off">
+                <input type="text" max="20" id="new_content_name" placeholder="content" required>
+                <textarea id="new_content_html" cols="30" rows="10"></textarea>
+                <button>enviar</button>
+            </form>
+        </details>
+        <details class="form">
+            <summary>edit content</summary>
+            <form action="/admin" id="edit_content">
+                <ul id="container_edit_content"></ul>
+            </form>
+        </details>
+        <details class="form">
+            <summary>delete content</summary>
+            <form action="/admin" id="delete_content">
+                <ul id="container_delete_content"></ul>
+            </form>
+        </details>
     </section>
 </section>
+<script>
+    const forms = document.querySelectorAll('#manager form')
+    forms.forEach(form=>{
+        form.onsubmit = (event) =>{
+            event.preventDefault()
+            for(let n = 0; n < form.children.length; n++){
+                console.log(form.children[n].value)
+            }
+        }
+    })
+</script>
 {% endblock body %}
