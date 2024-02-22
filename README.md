@@ -12,4 +12,4 @@ OBS: click on the cat logo to return home
 
 <img src='app/static/example.png' width='100%'>
 
-version: 3.0.0
+version: 3.2.0
