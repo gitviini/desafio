@@ -62,7 +62,8 @@
         <details class="form">
             <summary>new content</summary>
             <form action="/admin" id="new_content" autocomplete="off" method="POST">
-                <input type="text" max="20" id="new_content_name" placeholder="content" required>
+                <input type="text" max="20" id="new_content_name" placeholder="topic" required>
+                <input type="text" id="content_name" placeholder="name" required>
                 <textarea id="new_content_html" cols="30" rows="10" required></textarea>
                 <button>enviar</button>
             </form>
@@ -93,14 +94,13 @@
                     data.push(form.children[n].value)
                 }
             }
-            console.log(data)
-            post_data(form.id, data)
+            post_data(form.getAttribute('method'), form.id, data)
         }
     })
     
-    async function post_data(mode='',data=[]){
+    async function post_data(method='',mode='',data=[]){
         const req = await fetch('/admin/',{
-            method:'POST',
+            method:method,
             headers:{
                 'Content-Type':`application/json; mode=${mode}`,
             },

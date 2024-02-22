@@ -62,25 +62,31 @@ def admin_center(req='') -> any:
 def index():
     return render_template('index.html')
 
-@app.route('/center/')
+@app.route('/center/', methods=('POST','GET'))
 def center():
-    quests = os.walk(os.path.join(basepath,fouder))
-    data = {
-        'topic':[],
-    }
-    for quest in quests:
-        if quest[1]:
-            data['topic'] = quest[1]
-            for topic in quest[1]:
-                data[topic] = []
-        elif quest[2]:
-            for content in quest[2]:
-                if os.name == 'nt':
-                    data[quest[0].split('\\')[-1]].append(content.split('.html')[0])
-                elif os.name =='posix':
-                    data[quest[0].split('/')[-1]].append(content.split('.html')[0])
-                else: print(os.name)
-    return jsonify(data)
+    #quests = os.walk(os.path.join(basepath,fouder))
+
+    mode = req.mimetype_params['mode']
+
+    print(req.is_json)
+
+    if (req.is_json):
+        json = req.json
+        data = models.get_data(mode, json['topic'])
+        print(data)
+        return jsonify(data)
+    #for quest in quests:
+    #    if quest[1]:
+    #        data['topic'] = quest[1]
+    #        for topic in quest[1]:
+    #            data[topic] = []
+    #    elif quest[2]:
+    #        for content in quest[2]:
+    #            if os.name == 'nt':
+    #                data[quest[0].split('\\')[-1]].append(content.split('.html')[0])
+    #            elif os.name =='posix':
+    #                data[quest[0].split('/')[-1]].append(content.split('.html')[0])
+    #            else: print(os.name)
 
 @app.route('/<topic>/<content>/')
 def quest(topic='',content=''):
@@ -93,19 +99,18 @@ def quest(topic='',content=''):
 
 @app.route('/admin/', methods=('POST','GET','DELETE','PUT'))
 def admin():
-    if (req.method != 'GET'):
+    if req.is_json:
         mode = req.mimetype_params['mode']
-        if req.is_json:
-            json = req.json
-            print(json)
-            match (req.method):
-                case 'POST':
-                    models.center(mode,json)
-                case 'DELETE':
-                    models.center(mode,json)
-                case 'PUT':
-                    models.center(mode,json)
-            return jsonify({'resp':'ok'})
+        json = req.json
+        print(json)
+        match (req.method):
+            case 'POST':
+                print(models.center(mode,json))
+            case 'DELETE':
+                models.center(mode,json)
+            case 'PUT':
+                models.center(mode,json)    
+        return jsonify({'resp':'ok'})
     else: return render_template('admin_signed.html')
 
 #@app.route('/admin', methods=('POST','GET'))

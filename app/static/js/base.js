@@ -23,18 +23,19 @@ desafios.onclick = () =>{
 
 async function get_list(){
     const resp = await fetch(path,{
-        method:'GET',
+        method:'POST',
         headers:{
-            'Content-Type':'text/html; mode=get_list'
-        }
+            'Content-Type':'application/json; mode=get_content',
+        },
+        body:JSON.stringify({'topic':'camila'})
     })
     const data = await resp.json()
-
-    if(topic_select == ''){
+    console.log(data)
+    /*if(topic_select == ''){
         topic_select = data['topic'][0]
     }
 
-    gerenate(data)
+    gerenate(data)*/
 }
 
 function gerenate(data=[]){
