@@ -16,32 +16,33 @@ def table_exists():
         if cur.execute('SELECT name FROM sqlite_master WHERE type="table" AND name="topic"').fetchall() == []:
             cur.execute('CREATE TABLE topic(\
                         name VARCHAR(20) NOT NULL,\
-                        image TEXT;)')
+                        image TEXT)')
         if cur.execute('SELECT name FROM sqlite_master WHERE type="table" AND name="content"').fetchall() == []:
             cur.execute('CREATE TABLE content(topic VARCHAR(20) NOT NULL,\
                         name VARCHAR(20) NOT NULL,\
-                        html TEXT);')
+                        html TEXT)')
         con.commit()
         cur.close()
     except Exception as erro: error(f'table_exists:. {erro}')
 
-def center(mode='', data={}):
+def center(mode='', data = []):
     table_exists()
     con, cur = connect()
+    print(data)
     try:
         match (mode):
             case 'new_topic':
-                cur.execute(f"INSERT INTO topic(name, image) VALUES('{data['name']}','{data['image']}')")
+                cur.execute(f"INSERT INTO topic(name, image) VALUES('{data[0]}','{data[1]}')")
             case 'edit_topic':
                 cur.execute('')
             case 'delete_topic':
-                cur.execute(f"DELETE FROM topic WHERE name = '{data['name']}'")
+                cur.execute(f"DELETE FROM topic WHERE name = '{data[0]}'")
             case 'new_content':
-                cur.execute(f"INSERT INTO content(topic,name,html) VALUES('{data['topic']}','{data['name']}','{data['html']}')")
+                cur.execute(f"INSERT INTO content(topic,name,html) VALUES('{data[0]}','{data[1]}','{data[2]}')")
             case 'edit_content':
                 cur.execute(f'')
             case 'delete_content':
-                cur.execute(f"DELETE FROM content WHERE name = '{data['name']}'")
+                cur.execute(f"DELETE FROM content WHERE name = '{data[0]}'")
             case _:
                 error(f'center:. mode not {mode} found')
         con.commit()

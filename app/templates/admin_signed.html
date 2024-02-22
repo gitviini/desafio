@@ -47,35 +47,35 @@
     <section id="manager">
         <details class="form">
             <summary>new topic</summary>
-            <form action="/admin" id="new_topic" autocomplete="off">
+            <form action="/admin" id="new_topic" autocomplete="off" method="POST">
                 <input type="text" max="20" id="new_topic_name" placeholder="topic name" required>
-                <input type="file" id="new_topic_image">
+                <input type="file" id="new_topic_image" required>
                 <button>enviar</button>
             </form>
         </details>
         <details class="form">
             <summary>delete topic</summary>
-            <form action="/admin" id="delete_topic" autocomplete="off">
+            <form action="/admin" id="delete_topic" autocomplete="off" method="DELETE">
                 <ul id="container_delete_topic"></ul>
             </form>
         </details>
         <details class="form">
             <summary>new content</summary>
-            <form action="/admin" id="new_content" autocomplete="off">
+            <form action="/admin" id="new_content" autocomplete="off" method="POST">
                 <input type="text" max="20" id="new_content_name" placeholder="content" required>
-                <textarea id="new_content_html" cols="30" rows="10"></textarea>
+                <textarea id="new_content_html" cols="30" rows="10" required></textarea>
                 <button>enviar</button>
             </form>
         </details>
         <details class="form">
             <summary>edit content</summary>
-            <form action="/admin" id="edit_content">
+            <form action="/admin" id="edit_content" method="PUT">
                 <ul id="container_edit_content"></ul>
             </form>
         </details>
         <details class="form">
             <summary>delete content</summary>
-            <form action="/admin" id="delete_content">
+            <form action="/admin" id="delete_content" method="DELETE">
                 <ul id="container_delete_content"></ul>
             </form>
         </details>
@@ -86,10 +86,30 @@
     forms.forEach(form=>{
         form.onsubmit = (event) =>{
             event.preventDefault()
+            data = []
             for(let n = 0; n < form.children.length; n++){
-                console.log(form.children[n].value)
+                value = form.children[n].value
+                if (value){
+                    data.push(form.children[n].value)
+                }
             }
+            console.log(data)
+            post_data(form.id, data)
         }
     })
+    
+    async function post_data(mode='',data=[]){
+        const req = await fetch('/admin/',{
+            method:'POST',
+            headers:{
+                'Content-Type':`application/json; mode=${mode}`,
+            },
+            body:JSON.stringify(data)
+        })
+
+        const resp = await req.json()
+        console.log(resp)
+        return resp
+    }
 </script>
 {% endblock body %}

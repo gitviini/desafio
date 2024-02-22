@@ -1,5 +1,5 @@
 from app.__init__ import app, render_template, jsonify, make_response, req
-from app.models.models import center
+from app.models import models
 import os
 import hashlib
 
@@ -52,6 +52,8 @@ def admin_center(req='') -> any:
                 pass
             case _:
                 print(error(f'admin_center:. not found {mode}'))
+    elif (req.method == 'PUT'):
+        pass
     if (req.method == 'GET'):
         return render_template('admin.html')
 
@@ -89,20 +91,21 @@ def quest(topic='',content=''):
         print(erro)
         return render_template('error.html')
 
-@app.route('/admin', methods=('POST','GET','DELETE','PUT'))
+@app.route('/admin/', methods=('POST','GET','DELETE','PUT'))
 def admin():
     if (req.method != 'GET'):
-        mode = req.mimetype_params
+        mode = req.mimetype_params['mode']
         if req.is_json:
             json = req.json
             print(json)
             match (req.method):
                 case 'POST':
-                    center(mode, json)
+                    models.center(mode,json)
                 case 'DELETE':
-                    center(mode, json)
+                    models.center(mode,json)
                 case 'PUT':
-                    center(mode, json)
+                    models.center(mode,json)
+            return jsonify({'resp':'ok'})
     else: return render_template('admin_signed.html')
 
 #@app.route('/admin', methods=('POST','GET'))
