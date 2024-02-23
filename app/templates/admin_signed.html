@@ -85,53 +85,65 @@
 <script>
     const forms = document.querySelectorAll('#manager form')
 
-    async function reader_file(mode = '', value=''){
-        try{
-            let file = new FileReader()
+    async function read(mode=0, data=''){
+        let file = new FileReader()
 
-            switch (mode){
-                case 'image':
-                    file.readAsDataURL(value)
-                    break
-                case 'file':
-                    file.readAsText(value)
-                    break
-                default:
-                    break
-            }
-
-            return file
+        switch(mode){
+            case 0:
+                await file.readAsDataURL(data)
+                break
+            case 1:
+                await file.readAsText(data)
+                break
+            default:
+                break
         }
-        catch(error){
-            console.log(error)
-        }
+        return file
     }
 
+    
+
     forms.forEach(form=>{
-        form.onsubmit = async (event) =>{
+        form.onsubmit = async () =>{
             event.preventDefault()
-            data = []
-            for(let n = 0; n < form.children.length; n++){
-                let value = form.children[n].value
-                if (value){
-                    if (form.children[n].type == 'file'){
-                        await reader_file(form.children[n].getAttribute('class'), form.children[n].files[0])
-                        .then(file=>{
-                            file.onloadend = (load) =>{
-                                data.push(load.target.result)
+            let file = false
+
+            let data = []
+
+            for (let input of form){
+                if (input.type == 'file'){file = true}
+            }
+            for await (let input of form){
+                if(input.value){
+                    if (file){
+                        if(input.type == 'file'){
+                            let promise = ''
+                            if(input.getAttribute('class') == 'image'){
+                                promise = await read(0,input.files[0])
+                                promise.onloadend = load =>{
+                                    data.push(load.target.result)
+                                    console.log(data)
+                                    post_data(form.getAttribute('method'),form.id,data)
+                                }
                             }
-                        })
-                        .finally(()=>{
-                            
-                        })
+                            else{
+                                promise = await read(1,input.files[0])
+                                promise.onloadend = load =>{
+                                    data.push(btoa(load.target.result))
+                                    console.log(data)
+                                    post_data(form.getAttribute('method'),form.id,data)
+                                }
+                            }
+                        }
+                        else{data.push(input.value)}
                     }
-                    else{
-                        data.push(value)
-                    }
+                    else{data.push(input.value)}
                 }
             }
-            console.log(data)
-            post_data(form.getAttribute('method'), form.id, data)
+            if (!file){
+                console.log(data)
+                post_data(form.getAttribute('method'),form.id,data)
+            }
         }
     })
     

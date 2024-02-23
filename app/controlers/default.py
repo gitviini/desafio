@@ -1,6 +1,7 @@
 from app.__init__ import app, render_template, jsonify, make_response, req
 from app.models import models
 import os
+import base64
 import hashlib
 
 def error(text=''):
@@ -71,7 +72,6 @@ def center():
     if (req.is_json):
         json = req.json
         data = models.get_data(json['topic'])
-        print(data)
         return jsonify(data)
 
 @app.route('/<topic>/<content>/')
@@ -81,7 +81,7 @@ def quest(topic='',content=''):
         for item in models.get_data(topic)[topic]:
             if item[0] == content:
                 data = item[1]
-        return data
+        return render_template('template.html',data=data)
     except Exception as erro:
         print(erro)
         return render_template('error.html')

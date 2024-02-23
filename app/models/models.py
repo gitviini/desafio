@@ -28,7 +28,6 @@ def table_exists():
 def center(mode='', data = []):
     table_exists()
     con, cur = connect()
-    print(data)
     try:
         match (mode):
             case 'new_topic':

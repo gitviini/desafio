@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock header %}
+
+{% block body %}
+
+<script>
+    const data = {{data|tojson}}
+    console.log(atob(data))
+    document.querySelector('main').innerHTML += atob(data)
+</script>
+{% endblock body %}
