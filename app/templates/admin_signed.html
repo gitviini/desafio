@@ -49,7 +49,7 @@
             <summary>new topic</summary>
             <form action="/admin" id="new_topic" autocomplete="off" method="POST">
                 <input type="text" max="20" id="new_topic_name" placeholder="topic name" required>
-                <input type="file" id="new_topic_image" required>
+                <input type="file" id="new_topic_image" class="image" required>
                 <button>enviar</button>
             </form>
         </details>
@@ -64,7 +64,7 @@
             <form action="/admin" id="new_content" autocomplete="off" method="POST">
                 <input type="text" max="20" id="new_content_name" placeholder="topic" required>
                 <input type="text" id="content_name" placeholder="name" required>
-                <textarea id="new_content_html" cols="30" rows="10" required></textarea>
+                <input type="file" id="new_content_html" class="file" required>
                 <button>enviar</button>
             </form>
         </details>
@@ -84,16 +84,53 @@
 </section>
 <script>
     const forms = document.querySelectorAll('#manager form')
+
+    async function reader_file(mode = '', value=''){
+        try{
+            let file = new FileReader()
+
+            switch (mode){
+                case 'image':
+                    file.readAsDataURL(value)
+                    break
+                case 'file':
+                    file.readAsText(value)
+                    break
+                default:
+                    break
+            }
+
+            return file
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
     forms.forEach(form=>{
-        form.onsubmit = (event) =>{
+        form.onsubmit = async (event) =>{
             event.preventDefault()
             data = []
             for(let n = 0; n < form.children.length; n++){
-                value = form.children[n].value
+                let value = form.children[n].value
                 if (value){
-                    data.push(form.children[n].value)
+                    if (form.children[n].type == 'file'){
+                        await reader_file(form.children[n].getAttribute('class'), form.children[n].files[0])
+                        .then(file=>{
+                            file.onloadend = (load) =>{
+                                data.push(load.target.result)
+                            }
+                        })
+                        .finally(()=>{
+                            
+                        })
+                    }
+                    else{
+                        data.push(value)
+                    }
                 }
             }
+            console.log(data)
             post_data(form.getAttribute('method'), form.id, data)
         }
     })

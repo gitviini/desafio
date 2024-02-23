@@ -66,33 +66,22 @@ def index():
 def center():
     #quests = os.walk(os.path.join(basepath,fouder))
 
-    mode = req.mimetype_params['mode']
-
     print(req.is_json)
 
     if (req.is_json):
         json = req.json
-        data = models.get_data(mode, json['topic'])
+        data = models.get_data(json['topic'])
         print(data)
         return jsonify(data)
-    #for quest in quests:
-    #    if quest[1]:
-    #        data['topic'] = quest[1]
-    #        for topic in quest[1]:
-    #            data[topic] = []
-    #    elif quest[2]:
-    #        for content in quest[2]:
-    #            if os.name == 'nt':
-    #                data[quest[0].split('\\')[-1]].append(content.split('.html')[0])
-    #            elif os.name =='posix':
-    #                data[quest[0].split('/')[-1]].append(content.split('.html')[0])
-    #            else: print(os.name)
 
 @app.route('/<topic>/<content>/')
 def quest(topic='',content=''):
     try:
-        way = f'/courses/{topic}/{content}.html'
-        return render_template(way)
+        data = ''
+        for item in models.get_data(topic)[topic]:
+            if item[0] == content:
+                data = item[1]
+        return data
     except Exception as erro:
         print(erro)
         return render_template('error.html')

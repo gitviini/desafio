@@ -51,13 +51,17 @@ def center(mode='', data = []):
         cur.close()
         con.close()
 
-def get_data(mode = '',topic_name=''):
+def get_data(topic_name=''):
     table_exists()
     con, cur = connect()
     try:
         data = {}
         data['topic'] = cur.execute('SELECT * FROM topic').fetchall()
-        data[topic_name] = (cur.execute(f'SELECT name, html FROM content WHERE topic = "{topic_name}"').fetchall())
+        if (topic_name == ''):
+            topic_name = data['topic'][0][0]
+            data[topic_name] = (cur.execute(f'SELECT name, html FROM content WHERE topic = "{topic_name}"').fetchall())
+        else:
+            data[topic_name] = (cur.execute(f'SELECT name, html FROM content WHERE topic = "{topic_name}"').fetchall())
         return data
     except Exception as erro: error(f'get_data:. {erro}')
     finally:
