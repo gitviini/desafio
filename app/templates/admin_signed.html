@@ -94,10 +94,14 @@
                     file.readAsDataURL(value)
                     break
                 case 'file':
-                    file.readAsText(value)
+                    file.readAsDataURL(value)
                     break
                 default:
                     break
+            }
+
+            file.onload = async (load) =>{
+                return await load.target.result
             }
 
             return file
@@ -111,37 +115,34 @@
         form.onsubmit = async (event) =>{
             event.preventDefault()
             data = []
-            for(let n = 0; n < form.children.length; n++){
-                let value = form.children[n].value
+            for await (let n of form.children){
+                console.log(n)
+                let value = n.value
                 if (value){
-                    if (form.children[n].type == 'file'){
-                        await reader_file(form.children[n].getAttribute('class'), form.children[n].files[0])
-                        .then(file=>{
-                            file.onloadend = (load) =>{
-                                data.push(load.target.result)
-                            }
-                        })
-                        .finally(()=>{
-                            
-                        })
+                    if (n.type == 'file'){
+                        const promise = await reader_file(n.getAttribute('class'), n.files[0])
+                        promise.onloadend = async (load) =>{
+                            data.push(load.target.result)
+                            post_data(form.getAttribute('method'), form.id, data)
+                        }
                     }
                     else{
                         data.push(value)
                     }
                 }
             }
-            console.log(data)
-            post_data(form.getAttribute('method'), form.id, data)
         }
     })
     
     async function post_data(method='',mode='',data=[]){
+        value = await JSON.stringify(data)
+        console.log(value)
         const req = await fetch('/admin/',{
             method:method,
             headers:{
                 'Content-Type':`application/json; mode=${mode}`,
             },
-            body:JSON.stringify(data)
+            body:value
         })
 
         const resp = await req.json()

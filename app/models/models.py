@@ -50,6 +50,7 @@ def center(mode='', data = []):
     finally: 
         cur.close()
         con.close()
+        return f'data:{data}'
 
 def get_data(topic_name=''):
     table_exists()

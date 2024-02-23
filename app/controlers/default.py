@@ -1,6 +1,7 @@
 from app.__init__ import app, render_template, jsonify, make_response, req
 from app.models import models
 import os
+import base64
 import hashlib
 
 def error(text=''):
@@ -66,12 +67,12 @@ def index():
 def center():
     #quests = os.walk(os.path.join(basepath,fouder))
 
-    print(req.is_json)
+    print(f'json: {req.is_json}')
 
     if (req.is_json):
         json = req.json
         data = models.get_data(json['topic'])
-        print(data)
+        #print(f'data:{data}')
         return jsonify(data)
 
 @app.route('/<topic>/<content>/')
@@ -81,6 +82,8 @@ def quest(topic='',content=''):
         for item in models.get_data(topic)[topic]:
             if item[0] == content:
                 data = item[1]
+        #data = base64.b64decode(data)
+        print(base64.b64encode('oi'))
         return data
     except Exception as erro:
         print(erro)
@@ -91,10 +94,9 @@ def admin():
     if req.is_json:
         mode = req.mimetype_params['mode']
         json = req.json
-        print(json)
         match (req.method):
             case 'POST':
-                print(models.center(mode,json))
+                return jsonify(models.center(mode,json))
             case 'DELETE':
                 models.center(mode,json)
             case 'PUT':
