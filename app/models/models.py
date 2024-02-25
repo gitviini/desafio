@@ -1,6 +1,6 @@
 import sqlite3 as sq
 
-def error(text=''):
+def error(text='') -> any:
     print(f'\033[31;3m{text}\033[m')
 
 def connect():
@@ -15,11 +15,11 @@ def table_exists():
         con, cur = connect()
         if cur.execute('SELECT name FROM sqlite_master WHERE type="table" AND name="topic"').fetchall() == []:
             cur.execute('CREATE TABLE topic(\
-                        name VARCHAR(20) NOT NULL,\
+                        name VARCHAR(20) NOT NULL UNIQUE,\
                         image TEXT)')
         if cur.execute('SELECT name FROM sqlite_master WHERE type="table" AND name="content"').fetchall() == []:
             cur.execute('CREATE TABLE content(topic VARCHAR(20) NOT NULL,\
-                        name VARCHAR(20) NOT NULL,\
+                        name VARCHAR(20) NOT NULL UNIQUE,\
                         html TEXT)')
         con.commit()
         cur.close()
@@ -41,7 +41,7 @@ def center(mode='', data = []):
             case 'edit_content':
                 cur.execute(f'')
             case 'delete_content':
-                cur.execute(f"DELETE FROM content WHERE name = '{data[0]}'")
+                cur.execute(f'DELETE FROM content WHERE name = "{data[0]}"')
             case _:
                 error(f'center:. mode not {mode} found')
         con.commit()
@@ -50,18 +50,25 @@ def center(mode='', data = []):
         cur.close()
         con.close()
 
-def get_data(topic_name=''):
+def get_data(mode='get_topic',topic_name=''):
     table_exists()
     con, cur = connect()
     try:
         data = {}
         data['topic'] = cur.execute('SELECT * FROM topic').fetchall()
-        if (topic_name == ''):
-            topic_name = data['topic'][0][0]
-            data[topic_name] = (cur.execute(f'SELECT name, html FROM content WHERE topic = "{topic_name}"').fetchall())
-        else:
-            data[topic_name] = (cur.execute(f'SELECT name, html FROM content WHERE topic = "{topic_name}"').fetchall())
-        return data
+        match mode:
+            case 'get_content':
+                if (topic_name == ''):
+                    topic_name = data['topic'][0][0]
+                    data[topic_name] = (cur.execute(f'SELECT name, html FROM content WHERE topic = "{topic_name}"').fetchall())
+                else:
+                    data[topic_name] = (cur.execute(f'SELECT name, html FROM content WHERE topic = "{topic_name}"').fetchall())
+                return data
+            case 'get_content_all':
+                data['content_all'] = cur.execute('SELECT * FROM content').fetchall()
+                return data
+            case _:
+                error(f'get_data:. mode {mode} not found')
     except Exception as erro: error(f'get_data:. {erro}')
     finally:
         cur.close()

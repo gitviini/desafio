@@ -65,20 +65,29 @@ def index():
 
 @app.route('/center/', methods=('POST','GET'))
 def center():
-    #quests = os.walk(os.path.join(basepath,fouder))
+    
+    try:
+        mode = req.mimetype_params['mode']
+        print(mode)
 
-    print(req.is_json)
-
-    if (req.is_json):
-        json = req.json
-        data = models.get_data(json['topic'])
-        return jsonify(data)
+        if (req.method == 'POST'):
+            if (req.is_json):
+                print(req.is_json)
+                json = req.json
+                data = models.get_data(mode,json['topic'])
+                return jsonify(data)
+        else:
+            data = models.get_data(mode)
+            return jsonify(data)
+    except Exception as erro: 
+        error(f'center:. {erro}')
+    return jsonify({'resp':'oi'})
 
 @app.route('/<topic>/<content>/')
 def quest(topic='',content=''):
     try:
         data = ''
-        for item in models.get_data(topic)[topic]:
+        for item in models.get_data('get_content',topic)[topic]:
             if item[0] == content:
                 data = item[1]
         return render_template('template.html',data=data)
@@ -94,7 +103,7 @@ def admin():
         print(json)
         match (req.method):
             case 'POST':
-                print(models.center(mode,json))
+                models.center(mode,json)
             case 'DELETE':
                 models.center(mode,json)
             case 'PUT':

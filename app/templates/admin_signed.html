@@ -84,6 +84,53 @@
 </section>
 <script>
     const forms = document.querySelectorAll('#manager form')
+    const delete_topic = document.querySelector('#container_delete_topic')
+    const delete_content = document.querySelector('#container_delete_content')
+
+    get_data('get_content_all').then(data=>{
+        console.log(data)
+        generate('topic',data,delete_topic)
+        generate('content',data,delete_content)
+    })
+
+    function generate(mode='topic',data={}, container=''){
+        switch (mode){
+            case 'topic':
+                for(topic of data['topic']){
+                    let li = document.createElement('li')
+                    li.innerHTML = topic[0]
+                    li.onclick = () =>{
+                        post_data('DELETE','delete_topic',[topic[0]])
+                    }
+                    container.appendChild(li)
+                }
+                break
+            case 'content':
+                for(content of data['content_all']){
+                    let li = document.createElement('li')
+                    li.innerHTML = content[1]
+                    li.onclick = () =>{
+                        post_data('DELETE','delete_content',[content[1]])
+                    }
+                    container.appendChild(li)
+                }
+                break
+            default:
+                console.log(`generate:. mode ${mode} not found`)
+        }
+    }
+
+    async function get_data(mode='get_content',data={}){
+        const req = await fetch('/center',{
+            method:'GET',
+            headers:{
+                'Content-Type':`application/json;mode=${mode}`,
+            }
+        })
+
+        const resp = await req.json()
+        return resp
+    }  
 
     async function read(mode=0, data=''){
         let file = new FileReader()
@@ -101,7 +148,6 @@
         return file
     }
 
-    
 
     forms.forEach(form=>{
         form.onsubmit = async () =>{
@@ -118,21 +164,12 @@
                     if (file){
                         if(input.type == 'file'){
                             let promise = ''
-                            if(input.getAttribute('class') == 'image'){
-                                promise = await read(0,input.files[0])
-                                promise.onloadend = load =>{
-                                    data.push(load.target.result)
-                                    console.log(data)
-                                    post_data(form.getAttribute('method'),form.id,data)
-                                }
-                            }
-                            else{
-                                promise = await read(1,input.files[0])
-                                promise.onloadend = load =>{
-                                    data.push(btoa(load.target.result))
-                                    console.log(data)
-                                    post_data(form.getAttribute('method'),form.id,data)
-                                }
+                            if(input.getAttribute('class') == 'image'){promise = await read(0,input.files[0])}
+                            else{promise = await read(1,input.files[0])}
+                            promise.onloadend = load =>{
+                                data.push(load.target.result)
+                                console.log(data)
+                                post_data(form.getAttribute('method'),form.id,data)
                             }
                         }
                         else{data.push(input.value)}
@@ -143,6 +180,7 @@
             if (!file){
                 console.log(data)
                 post_data(form.getAttribute('method'),form.id,data)
+                window.location.reload()
             }
         }
     })
@@ -156,9 +194,9 @@
             body:JSON.stringify(data)
         })
 
-        const resp = await req.json()
-        console.log(resp)
-        return resp
+        if(req.ok){
+            window.location.reload()
+        }
     }
 </script>
 {% endblock body %}
