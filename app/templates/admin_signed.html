@@ -2,43 +2,133 @@
 
 {% block header %}
     <style>
+        :root{
+            --bg: #C9D7DD;
+            --code: #637A9F;
+            --input: #FFF3CF;
+            --color: #345;
+            --color-code: #fff;
+            --prov: #E8C872;
+            scrollbar-color: var(--code) transparent;
+            scrollbar-width: 5px;
+        }
+
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--color);
+            scroll-behavior: smooth;
+            transition: 0.2s, font-style, border-right;
+        }
+
+        html, body{
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
         section{
-            justify-content: center;
-            align-items: center;
-            align-self: center;
+            padding: 0;
+            gap: 0;
+        }
+
+        #container_admin{
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            width: 100%;
+            height: 100%;
         }
 
         #manager{
+            display: flex;
             flex-flow: column;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 5px;
+            width: auto;
+            height: 100%;
+            background-color: var(--bg);
         }
 
-        #manager .form{
-            border: 2px solid var(--bg);
+        details{
             padding: 20px;
-            border-radius: 20px;
         }
 
-        .form summary{
+        summary{
             cursor: pointer;
         }
 
-        #manager form{
+        form{
+            margin: 10px 0 0 0;
             display: flex;
             flex-flow: column;
             justify-content: center;
             align-items: flex-start;
-            gap: 5px;
-            margin: 10px 0 0 0;
+            gap: 10px;
         }
 
-        #manager textarea{
-            border: 2px solid var(--bg);
-            padding: 10px;
-            border-radius: 5px;
+        #editor{
+            display: grid;
+            width: 100%;
+            height: 100%;
+            grid-template-columns: 1fr;
+            grid-template-rows: 60px 1fr;
+            background-color: #fff;
+            border-left: 2.5px solid var(--bg);
         }
+
+        #container_header_editor{
+            display: flex;
+            width: 100%;
+            height: 100%;
+            padding: 0 20px;
+            flex-flow: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #area_editor{
+            display: block;
+            padding: 5px;
+            width: 100%;
+            height: 100%;
+            resize: none;
+            border: 2.5px solid var(--bg);
+            border-left: none;
+            outline: none;
+        }
+
+        input, button, select{
+            text-decoration: none;
+            width: auto;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            background-color: var(--bg);
+            color: var(--color);
+            cursor: pointer;
+            gap: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-sizing: border-box;
+            transition: 0.2s;
+        }
+
+        #manager input, #manager button, #manager select{
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        button:hover, .button:hover{
+            background-color: var(--code);
+            color: var(--color-code);
+        }
+
     </style>
 {% endblock header %}
 
@@ -62,7 +152,11 @@
         <details class="form">
             <summary>new content</summary>
             <form action="/admin" id="new_content" autocomplete="off" method="POST">
-                <input type="text" max="20" id="new_content_name" placeholder="topic" required>
+                <select name="" id="new_content_topic">
+                    <option selected value="">select-topic</option>
+                    <option value="python">python</option>
+                    <option value="java script">java script</option>
+                </select>
                 <input type="text" id="content_name" placeholder="name" required>
                 <input type="file" id="new_content_html" class="file" required>
                 <button>enviar</button>
@@ -80,6 +174,15 @@
                 <ul id="container_delete_content"></ul>
             </form>
         </details>
+    </section>
+    <section id="editor">
+        <div id="container_header_editor">
+            <span id="file_topic">python</span>
+            <span id="file_name">file</span>
+            <button id="clear">apagar</button>
+            <button id="send">enviar</button>
+        </div>
+        <textarea id="area_editor" cols="100%" rows="100%"></textarea>
     </section>
 </section>
 <script>
