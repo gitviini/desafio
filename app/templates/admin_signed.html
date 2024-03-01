@@ -40,6 +40,7 @@
             grid-template-columns: 250px 1fr;
             width: 100%;
             height: 100%;
+            overflow: hidden;
         }
 
         #manager{
@@ -122,6 +123,7 @@
 
         #manager input, #manager button, #manager select{
             background-color: rgba(0,0,0,0.1);
+            width: 100%;
         }
 
         button:hover, .button:hover{
@@ -152,10 +154,10 @@
         <details class="form">
             <summary>new content</summary>
             <form action="/admin" id="new_content" autocomplete="off" method="POST">
-                <select name="" id="new_content_topic">
+                <select id="new_content_topic">
                     <option selected value="">select-topic</option>
-                    <option value="python">python</option>
-                    <option value="java script">java script</option>
+                    <!--<option value="python">python</option>
+                    <option value="java script">java script</option>-->
                 </select>
                 <input type="text" id="content_name" placeholder="name" required>
                 <input type="file" id="new_content_html" class="file" required>
@@ -182,19 +184,38 @@
             <button id="clear">apagar</button>
             <button id="send">enviar</button>
         </div>
-        <textarea id="area_editor" cols="100%" rows="100%"></textarea>
+        <textarea id="area_editor" cols="100%" rows="0"></textarea>
     </section>
 </section>
 <script>
     const forms = document.querySelectorAll('#manager form')
+    const area_editor = document.querySelector('#area_editor')
+    const content_topic = document.querySelector('#new_content_topic')
     const delete_topic = document.querySelector('#container_delete_topic')
     const delete_content = document.querySelector('#container_delete_content')
+    const file_edit = document.querySelectorAll('#container_header_editor button')
+
+    file_edit.forEach(option=>{
+        switch(option.id){
+            case 'clear':
+                option.onclick = event => area_editor.value = ''
+                break
+            case 'send':
+                option.onclick = event => console.log(area_editor.value)
+                break
+            default:
+                console.log(`file_edit:. option ${option.id} not found`)
+                break
+        }
+    })
 
     get_data('get_content_all').then(data=>{
         console.log(data)
         generate('topic',data,delete_topic)
         generate('content',data,delete_content)
     })
+
+
 
     function generate(mode='topic',data={}, container=''){
         switch (mode){
